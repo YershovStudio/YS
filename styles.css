@@ -10,7 +10,7 @@
 /* Root colors to re-use */
 :root {
     --primary-color: #cb132c;
-    --background-color: #000000;
+    --background-color: #0f0f0f;
     --text-color: #ffffff;
     --font-family: 'Host Grotesk', sans-serif;
     /* --page-padding: 40px; /* page is defaulted to 40px padding */
@@ -401,7 +401,7 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  background: #000;
+  background: #0f0f0f;
   z-index: 10001; /* navbar layered above dropdown menu */
 }
 
@@ -550,21 +550,21 @@ nav a.active {
 
 /* GALLERY active */
 /* Mobile gallery active */
-.icon-gallery .nav-icon {
-  content: url("SVG/icon-gallery.svg");
-}
-
-.sort-wrapper.active .icon-gallery .nav-icon {
+.page-gallery .icon-gallery .nav-icon {
   content: url("SVG/icon-gallery-active.svg");
 }
 
-.page-gallery .icon-gallery .caret-icon {
-  content: url("SVG/carrot.svg");
+
+.page-gallery .sort-wrapper.active .nav-icon {
+  content: url("SVG/icon-gallery-active.svg");
 }
 
-.sort-wrapper.active .icon-gallery .caret-icon {
+
+
+.page-gallery .icon-gallery .caret-icon {
   content: url("SVG/carrot-active.svg");
 }
+
 
 .page-about .icon-about img {
   content: url("SVG/about-active.svg");
@@ -575,8 +575,47 @@ nav a.active {
   content: url("SVG/contact-active.svg");
 }
 
+/*
+
+.icon-wrap{
+  display: flex;        
+  position: relative;
+  line-height: 0;      
+}
 
 
+.page-gallery .icon-gallery .icon-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+
+.page-gallery .icon-gallery .icon-wrap::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 1px;
+  background: #ffffff;
+}
+
+
+
+
+.page-gallery .icon-gallery::after .nav-icon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;               
+  transform: translateX(-50%);
+  width: 18px;                
+  height: 1.5px;              
+  background: #cb132c;        
+}
+
+*/
 
 /* ---------------- FILTER BAR ---------------- */
 
@@ -803,5 +842,15 @@ button:focus-visible {
 
   display: flex;
   flex-direction: column;
-  gap: 20px;
+}
+
+.about-photo{
+  max-width: 150px;
+  margin: 0 auto;
+}
+
+.about-photo img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
