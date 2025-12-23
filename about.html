@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Yershov Studio</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+
+    <body class="page-about">
+
+
+
+        <div class="nav-wrapper">
+        <header>
+            <div class="header-container">
+                <div class="header-inner">
+
+                    <!-- Left -->
+                    <div class="header-left">
+                        <a href="index.html" class="icon-link" aria-label="Gallery">
+                            <img src="SVG/logo-mobile2.svg" class="logo-mobile">
+                            <img src="SVG/logo-desktop.svg" class="logo-desktop">
+                        </a>
+                    </div>
+
+                    <!-- Right -->
+                    <div class="header-right">
+
+                        <!-- Desktop nav -->
+                        <nav class="nav-links desktop-nav">
+
+                            <div class="sort-wrapper desktop-sort">
+
+                                <button class="desktop-sort-btn active" id="sortToggleDesktop">
+                                    Gallery
+                                    <img src="SVG/carrot.svg" alt="" class="caret-icon">
+                                </button>
+
+                                <div class="sort-dropdown">
+                                    <button class="filter-option" data-filter="all">All</button>
+                                    <button class="filter-option" data-filter="photo">Photo</button>
+                                    <button class="filter-option" data-filter="design">Design</button>
+                                </div>
+
+                            </div>
+
+
+                            <a href="about.html" class="active">About</a>
+                            <a href="contact.html" class="contact-nav">Contact</a>
+                        </nav>
+
+                        <!-- Mobile nav -->
+                        <div class="icon-nav">
+
+                            <!-- GALLERY = SORT CONTROL -->
+                            <div class="sort-wrapper icon-sort">
+
+                                <button class="icon-sort-btn icon-gallery" id="sortToggle" aria-label="Filter gallery">
+                                    <img src="SVG/carrot.svg" alt="" class="caret-icon">
+                                    <img src="SVG/icon-gallery.svg" alt="" class="nav-icon">
+                                </button>
+
+                                <div class="sort-dropdown" id="sortDropdown">
+                                    <button class="filter-option" data-filter="all">All</button>
+                                    <button class="filter-option" data-filter="photo">Photo</button>
+                                    <button class="filter-option" data-filter="design">Design</button>
+                                </div>
+
+                            </div>
+
+                            <!-- ABOUT -->
+                            <a href="about.html" class="icon-link icon-about" aria-label="About">
+                                <img src="SVG/about.svg" alt="">
+                            </a>
+
+                            <!-- CONTACT -->
+                            <a href="contact.html" class="icon-link icon-contact" aria-label="Contact">
+                                <img src="SVG/icon-contact.svg" alt="">
+                            </a>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </header>
+    </div>
+
+
+
+
+   <main class="page-content page-content--centered">
+        <section class="about">
+            <!-- <h1>About</h1> -->
+
+            <p>
+            My name is Oleg Yershov, a designer & photographer based in Lowell. I run Yershov Studio as a space to show my photography, design,
+            and image-based storytelling.
+            </p>
+
+            <p>
+            My work centers on portraiture, with an emphasis on lighting and controlled setups, while also extending into more casual, observational photography. I strive to create bold, high-impact work that uses drama, colors, and composition as a visual tool in both design and photography.
+            </p>
+
+            <p>
+            I treat portraiture as a constructed process, using lighting and creative effects to shape images that feel intentional and dramatic. I do indoor & outdoor photoshoots, group photos, and graduation work, focusing on creating images that feel personal, elevated, and unique.
+            </p>
+
+        </section>
+    </main>
+
+
+
+        <!------- SCRIPTS ------->
+
+    <script>
+
+
+        /* ---------------- HEADER HEIGHT ---------------- */
+
+        const navWrapper = document.querySelector('.nav-wrapper');
+
+
+        function setNavHeight() {
+            document.documentElement.style.setProperty(
+                '--header-height',
+                `${navWrapper.offsetHeight}px`
+            );
+        }
+
+        setNavHeight();
+        window.addEventListener('resize', setNavHeight);
+
+
+        /* ---------------- FILTER DROPDOWN ---------------- */
+        /* ---------------- FILTERING ---------------- */
+
+        const filterOptions = document.querySelectorAll('.filter-option');
+        const items = document.querySelectorAll('.poster-grid img');
+
+        filterOptions.forEach(option => {
+        option.addEventListener('click', (e) => {
+            e.stopPropagation();
+
+            const filter = option.dataset.filter;
+
+            filterOptions.forEach(o => o.classList.remove('active'));
+            option.classList.add('active');
+
+            items.forEach(item => {
+            if (filter === 'all' || item.dataset.category === filter) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+            });
+
+            // Close all dropdowns
+            document
+            .querySelectorAll('.sort-wrapper')
+            .forEach(w => w.classList.remove('active'));
+        });
+        });
+
+
+
+        let lastScrollY = window.scrollY;
+
+        window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+
+        if (Math.abs(currentScrollY - lastScrollY) < 10) return;
+
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            navWrapper.classList.add('nav-hidden');
+        } else {
+            navWrapper.classList.remove('nav-hidden');
+        }
+
+        lastScrollY = currentScrollY;
+        });
+
+        /* ---------------- GALLERY CONTROL ---------------- */
+
+        /* ---------------- GALLERY CONTROL ---------------- */
+
+        const isGalleryPage = document.body.classList.contains('page-gallery');
+
+        document.querySelectorAll('.sort-wrapper').forEach(wrapper => {
+        const button = wrapper.querySelector('button');
+
+        button.addEventListener('click', (e) => {
+            if (!isGalleryPage) {
+            // Not on gallery → navigate
+            window.location.href = 'index.html';
+            return;
+            }
+
+            // On gallery → toggle dropdown
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Close others first
+            document
+            .querySelectorAll('.sort-wrapper')
+            .forEach(w => w.classList.remove('active'));
+
+            wrapper.classList.toggle('active');
+        });
+        });
+
+        // Global click closes dropdowns
+        document.addEventListener('click', () => {
+        document
+            .querySelectorAll('.sort-wrapper')
+            .forEach(w => w.classList.remove('active'));
+        });
+
+
+    </script>
+    </body>
+
+</html>

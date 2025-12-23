@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yershov Studio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+
+<body class="page-gallery">
+    <div class="nav-wrapper">
+        <header>
+            <div class="header-container">
+                <div class="header-inner">
+
+                    <!-- Left -->
+                    <div class="header-left">
+                        <a href="all.html" class="icon-link" aria-label="Gallery">
+                            <img src="SVG/logo-mobile2.svg" class="logo-mobile">
+                            <img src="SVG/logo-desktop.svg" class="logo-desktop">
+                        </a>
+                    </div>
+
+                    <!-- Right -->
+                    <div class="header-right">
+
+                        <!-- Desktop nav -->
+                        <nav class="nav-links desktop-nav">
+
+                            <div class="sort-wrapper desktop-sort">
+
+                                <button class="desktop-sort-btn active" id="sortToggleDesktop">
+                                    Gallery
+                                    <img src="SVG/carrot.svg" alt="" class="caret-icon">
+                                </button>
+
+                                <div class="sort-dropdown">
+                                    <button class="filter-option" data-filter="all">All</button>
+                                    <button class="filter-option" data-filter="photo">Photo</button>
+                                    <button class="filter-option" data-filter="design">Design</button>
+                                </div>
+
+                            </div>
+
+
+                            <a href="about.html">About</a>
+                            <a href="contact.html" class="contact-nav">Contact</a>
+                        </nav>
+
+                        <!-- Mobile nav -->
+                        <div class="icon-nav">
+
+                            <!-- GALLERY = SORT CONTROL -->
+                            <div class="sort-wrapper icon-sort">
+
+                                <button class="icon-sort-btn icon-gallery" id="sortToggle" aria-label="Filter gallery">
+                                    <img src="SVG/carrot.svg" alt="" class="caret-icon">
+                                    <img src="SVG/icon-gallery.svg" alt="" class="nav-icon">
+                                    
+                                </button>
+
+                                <div class="sort-dropdown" id="sortDropdown">
+                                    <button class="filter-option" data-filter="all">All</button>
+                                    <button class="filter-option" data-filter="photo">Photo</button>
+                                    <button class="filter-option" data-filter="design">Design</button>
+                                </div>
+
+                            </div>
+
+                            <!-- ABOUT -->
+                            <a href="about.html" class="icon-link icon-about" aria-label="About">
+                                <img src="SVG/about.svg" alt="">
+                            </a>
+
+                            <!-- CONTACT -->
+                            <a href="contact.html" class="icon-link icon-contact" aria-label="Contact">
+                                <img src="SVG/icon-contact.svg" alt="">
+                            </a>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <main class="page-content">
+
+        <div class="container">
+            <div class="poster-grid">
+                <div class="poster-item photo">
+                    <img src="Koray/KK Praying.png" data-category="photo">
+                </div>
+                <div class="poster-item photo">
+                    <img src="Koray/KK Spotlight BW3.png" data-category="photo">
+                </div>
+                <div class="poster-item">
+                    <img src="Koray/KK08.png" data-category="photo">
+                </div>
+                <div class="poster-item photo">
+                    <img src="Koray/KK02.png" data-category="photo">
+                </div>
+                <div class="poster-item photo">
+                    <img src="Koray/KK042.png" data-category="photo">
+                </div>
+                <div class="poster-item photo">
+                    <img src="Images/pic5.jpg" data-category="photo">
+                </div>
+                <div class="poster-item photo">
+                    <img src="Koray/KK05 BW.png" data-category="photo">
+                </div>
+                <div class="poster-item design">
+                    <img src="Images/eminem ig2.png" data-category="design">
+                </div>
+                <div class="poster-item photo">
+                    <img src="Images/pic4.png" data-category="photo">
+                </div>
+                <div class="poster-item photo">
+                    <img src="Images/pic2.png" data-category="photo">
+                </div>
+                <div class="poster-item photo">
+                    <img src="Images/banner.jpg" data-category="photo">
+                </div>
+                <div class="poster-item photo">
+                    <img src="Images/banner2.png" data-category="photo">
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+
+    <script>
+
+
+        /* ---------------- HEADER HEIGHT ---------------- */
+
+        const navWrapper = document.querySelector('.nav-wrapper');
+
+        function setNavHeight() {
+            document.documentElement.style.setProperty(
+                '--header-height',
+                `${navWrapper.getBoundingClientRect().height}px`
+            );
+        }
+
+        // Run at the right times
+        window.addEventListener('load', setNavHeight);
+        window.addEventListener('resize', setNavHeight);
+
+        // Safari / font-load safety
+        setTimeout(setNavHeight, 50);
+        setTimeout(setNavHeight, 250);
+
+
+
+        /* ---------------- FILTER DROPDOWN ---------------- */
+        /* ---------------- FILTERING ---------------- */
+
+        const filterOptions = document.querySelectorAll('.filter-option');
+
+
+
+
+        let lastScrollY = window.scrollY;
+
+        window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+
+        if (Math.abs(currentScrollY - lastScrollY) < 10) return;
+
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            navWrapper.classList.add('nav-hidden');
+        } else {
+            navWrapper.classList.remove('nav-hidden');
+        }
+
+        lastScrollY = currentScrollY;
+        });
+
+        /* ---------------- GALLERY CONTROL ---------------- */
+
+
+        const isGalleryPage = document.body.classList.contains('page-gallery');
+
+        document.querySelectorAll('.sort-wrapper').forEach(wrapper => {
+        const button = wrapper.querySelector('button');
+
+        button.addEventListener('click', (e) => {
+            e.stopPropagation();
+
+            if (!isGalleryPage) {
+            // Not on gallery → navigate
+            window.location.href = 'all.html';
+            return;
+            }
+
+            const isOpen = wrapper.classList.contains('active');
+
+            // Close all dropdowns first
+            document
+            .querySelectorAll('.sort-wrapper')
+            .forEach(w => w.classList.remove('active'));
+
+            // Toggle THIS one
+            if (!isOpen) {
+            wrapper.classList.add('active');
+            }
+        });
+        });
+
+        
+
+
+        const galleryItems = document.querySelectorAll('.poster-item');
+
+        function filterGallery(type) {
+        galleryItems.forEach(item => {
+            const show =
+            type === 'all' || item.classList.contains(type);
+            item.style.display = show ? 'inline-block' : 'none';
+        });
+        }
+
+        document.querySelectorAll('.filter-option').forEach(btn => {
+        btn.addEventListener('click', e => {
+            e.stopPropagation();
+
+            const filter = btn.dataset.filter;
+
+            document
+            .querySelectorAll('.filter-option')
+            .forEach(b => b.classList.remove('active'));
+
+            document
+            .querySelectorAll(`.filter-option[data-filter="${filter}"]`)
+            .forEach(b => b.classList.add('active'));
+
+            filterGallery(filter);
+
+            document
+            .querySelectorAll('.sort-wrapper')
+            .forEach(w => w.classList.remove('active'));
+        });
+        });
+
+
+        // default state
+        document
+            .querySelectorAll('.filter-option[data-filter="all"]')
+            .forEach(btn => btn.classList.add('active'));
+
+        filterGallery('all');
+
+
+
+
+    </script>
+
+</body>
