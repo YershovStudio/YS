@@ -12,6 +12,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
 
 </head>
 
@@ -154,11 +155,17 @@
                     <img src="Images/cape car.png" data-category="photo">
                 </div>
                 <div class="poster-item photo">
-                    <img src="Images/cape car interior.png" data-category="photo">
+                    <img src="Images/cape car interior2.png" data-category="photo">
                 </div>
             </div>
         </div>
     </main>
+
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <img src="" alt="">
+    </div>
 
 
 
@@ -283,6 +290,32 @@
             .forEach(btn => btn.classList.add('active'));
 
         filterGallery('photo');
+
+
+
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = lightbox.querySelector('img');
+
+        document.querySelectorAll('.poster-item img').forEach(img => {
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightbox.classList.add('active');
+            });
+        });
+
+        // Close on click outside image
+        lightbox.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+            lightboxImg.src = '';
+        });
+
+        // Close on ESC
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                lightbox.classList.remove('active');
+                lightboxImg.src = '';
+            }
+        });
 
 
 

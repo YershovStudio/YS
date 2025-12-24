@@ -53,6 +53,39 @@ body {
 /* ------------------- GALLERY ------------------- */
 
 
+/* ---------- LIGHTBOX ---------- */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(6px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+
+  z-index: 99999;
+}
+
+.lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+
+
 @media (max-width: 600px) {
   .poster-grid {
     column-count: 2;
