@@ -136,9 +136,6 @@
                     <img src="Images/sunniez3.png" data-category="photo">
                 </div> 
                 <div class="poster-item photo">
-                    <img src="Images/cactus.png" data-category="photo">
-                </div>  
-                <div class="poster-item photo">
                     <img src="Images/Loneliness.png" data-category="photo">
                 </div>         
                 <div class="poster-item photo">
@@ -147,6 +144,12 @@
                 <div class="poster-item photo">
                     <img src="Images/despair.png" data-category="photo">
                 </div>  
+                <div class="poster-item photo">
+                    <img src="Images/maima.png" data-category="photo">
+                </div>
+                <div class="poster-item photo">
+                    <img src="Images/maima2.png" data-category="photo">
+                </div>
             </div>
         </div>
     </main>
@@ -270,10 +273,10 @@
 
         // default state
         document
-            .querySelectorAll('.filter-option[data-filter="all"]')
+            .querySelectorAll('.filter-option[data-filter="photo"]')
             .forEach(btn => btn.classList.add('active'));
 
-        filterGallery('all');
+        filterGallery('photo');
 
 
 
