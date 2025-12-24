@@ -6,9 +6,13 @@
       .st0 {
         fill: #777;
       }
+
+      .st1 {
+        display: none;
+      }
     </style>
   </defs>
-  <g id="Layer_7">
+  <g id="Layer_7" class="st1">
     <rect y="0" width="373.2" height="373.2"/>
   </g>
   <g id="about">
