@@ -17,7 +17,7 @@
 </head>
 
 
-<body class="page-gallery">
+<body class="page-design">
     <div class="nav-wrapper">
         <header>
             <div class="header-container">
@@ -25,7 +25,7 @@
 
                     <!-- Left -->
                     <div class="header-left">
-                        <a href="index.html" class="icon-link" aria-label="Home">
+                        <a href="index.html" class="icon-link" aria-label="Home"></a>
                             <img src="SVG/logo-mobile2.svg" class="logo-mobile">
                             <img src="SVG/logo-desktop.svg" class="logo-desktop">
                         </a>
@@ -37,11 +37,13 @@
 
                         <!-- Desktop nav -->
                         <nav class="nav-links desktop-nav">
-
+                            <a href="index.html">Photo</a>
+                            <a href="about.html">About</a>
+                            <a href="contact.html" class="contact-nav">Contact</a>
                             <div class="sort-wrapper desktop-sort">
 
                                 <button class="desktop-sort-btn active" id="sortToggleDesktop">
-                                    Photography
+                                    Design
                                     <img src="SVG/carrot.svg" alt="" class="caret-icon">
                                 </button>
 
@@ -52,10 +54,7 @@
                                 </div>
 
                             </div>
-
-                            <a href="design.html">Design</a>
-                            <a href="about.html">About</a>
-                            <a href="contact.html" class="contact-nav">Contact</a>
+            
                         </nav>
 
                         <!-- Mobile nav -->
@@ -90,6 +89,8 @@
                                 <img src="SVG/icon-contact.svg" alt="">
                             </a>
 
+
+
                         </div>
 
 
@@ -103,10 +104,9 @@
         <div class="filter-bar">
             <div class="filter-inner">
                 <div class="filter-tabs">
-                <button class="filter-btn active" data-filter="photo">All</button>
-                <button class="filter-btn" data-filter="classic">Classic</button>
-                <button class="filter-btn" data-filter="editorial">Editorial</button>
-                <button class="filter-btn" data-filter="mixed-media">Stylized</button>
+                    <button class="filter-btn" data-filter="all">All</button>
+                    <button class="filter-btn active" data-filter="branding">Branding</button>
+                    <button class="filter-btn" data-filter="stylized">Stylized</button>
                 </div>
             </div>
         </div>
@@ -117,59 +117,11 @@
 
         <div class="container">
             <div class="poster-grid">
-                <div class="poster-item photo editorial">
-                    <img src="Koray/KK Praying.png" data-category="photo">
+                <div class="poster-item branding">
+                    <img src="Koray/KK Spotlight BW3.png">
                 </div>
-                <div class="poster-item photo editorial">
-                    <img src="Koray/KK Spotlight BW3.png" data-category="photo">
-                </div>
-                <div class="poster-item editorial">
-                    <img src="Koray/KK08.png" data-category="photo">
-                </div>
-                <div class="poster-item photo editorial">
-                    <img src="Koray/KK02.png" data-category="photo">
-                </div>
-                <div class="poster-item photo">
-                    <img src="Koray/KK042.png" data-category="photo">
-                </div>
-                <div class="poster-item photo classic">
-                    <img src="Images/pic5.jpg" data-category="photo">
-                </div>
-                <div class="poster-item photo editorial">
-                    <img src="Koray/KK05 BW.png" data-category="photo">
-                </div>
-                <div class="poster-item design mixed-media">
-                    <img src="Images/eminem ig2.png" data-category="design">
-                </div>
-                <div class="poster-item photo classic">
-                    <img src="Images/pic4.png" data-category="photo">
-                </div>      
-                <div class="poster-item photo editorial">
-                    <img src="Images/white spotlight.png" data-category="photo">
-                </div> 
-                <div class="poster-item photo editorial">
-                    <img src="Images/sunniez3.png" data-category="photo">
-                </div> 
-                <div class="poster-item photo mixed-media">
-                    <img src="Images/Loneliness.png" data-category="photo">
-                </div>         
-                <div class="poster-item photo mixed-media">
-                    <img src="Images/trust.png" data-category="photo">
-                </div>         
-                <div class="poster-item photo mixed-media">
-                    <img src="Images/despair.png" data-category="photo">
-                </div>  
-                <div class="poster-item photo editorial">
-                    <img src="Images/maima.png" data-category="photo">
-                </div>
-                <div class="poster-item photo editorial">
-                    <img src="Images/maima2.png" data-category="photo">
-                </div>
-                <div class="poster-item photo mixed-media">
-                    <img src="Images/cape car.png" data-category="photo">
-                </div>
-                <div class="poster-item photo mixed-media">
-                    <img src="Images/cape car interior2.png" data-category="photo">
+                <div class="poster-item stylized">
+                    <img src="Images/eminem ig2.png">
                 </div>
             </div>
         </div>
@@ -234,29 +186,24 @@
         /* ---------------- GALLERY CONTROL ---------------- */
 
 
-        const isGalleryPage = document.body.classList.contains('page-gallery');
+       document.querySelectorAll('.sort-wrapper').forEach(wrapper => {
+            const button = wrapper.querySelector('button');
 
-        document.querySelectorAll('.sort-wrapper').forEach(wrapper => {
-        const button = wrapper.querySelector('button');
+            button.addEventListener('click', e => {
+                e.stopPropagation();
+                document.querySelectorAll('.sort-wrapper')
+                    .forEach(w => w.classList.remove('active'));
 
-        button.addEventListener('click', (e) => {
-            e.stopPropagation();
+                wrapper.classList.add('active');
 
-            const isOpen = wrapper.classList.contains('active');
+            });
+        });
 
-            // Close all dropdowns first
-            document
+        document.addEventListener('click', () => {
+        document
             .querySelectorAll('.sort-wrapper')
             .forEach(w => w.classList.remove('active'));
-
-            // Toggle THIS one
-            if (!isOpen) {
-            wrapper.classList.add('active');
-            }
         });
-        });
-
-        
 
 
         const galleryItems = document.querySelectorAll('.poster-item');
@@ -288,20 +235,29 @@
             });
             });
 
+            // Dropdown buttons (mobile / desktop)
             document.querySelectorAll('.filter-option').forEach(btn => {
             btn.addEventListener('click', e => {
                 e.stopPropagation();
-
                 const filter = btn.dataset.filter;
 
-                // ✅ SPECIAL CASE: Design = navigate away
-                if (filter === 'design' && document.body.classList.contains('page-gallery')) {
-                window.location.href = 'design.html';
-                return;
+                // INDEX PAGE
+                if (document.body.classList.contains('page-gallery')) {
+                if (filter === 'design') {
+                    window.location.href = 'design.html';
+                    return;
+                }
+                applyFilter(filter);
                 }
 
-                // Otherwise → normal filtering
+                // DESIGN PAGE
+                if (document.body.classList.contains('page-design')) {
+                if (filter === 'photo') {
+                    window.location.href = 'index.html';
+                    return;
+                }
                 applyFilter(filter);
+                }
 
                 document
                 .querySelectorAll('.sort-wrapper')
@@ -311,13 +267,18 @@
 
 
 
+       // default state
+        filterGallery('branding');
 
-        // default state
         document
-            .querySelectorAll('.filter-option[data-filter="photo"]')
+            .querySelectorAll('.filter-option[data-filter="branding"]')
             .forEach(btn => btn.classList.add('active'));
 
-        filterGallery('photo');
+        document
+            .querySelectorAll('.filter-btn[data-filter="branding"]')
+            .forEach(btn => btn.classList.add('active'));
+
+
 
 
 

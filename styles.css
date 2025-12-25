@@ -15,12 +15,14 @@
     --gallery-gap: clamp(20px, 3vw, 100px);
 
 }
+
+/* navbar */
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   /* padding: 20px 0; /* nav vertical padding */
-  padding: clamp(20px, 2vw, 40px) 0;
+  padding: clamp(15px, 2vw, 20px) 0;
   
 }
 
@@ -585,17 +587,13 @@ nav a.active {
 
 /* ---------------- FILTER BAR ---------------- */
 
+/* Secondary filter bar */
 .filter-bar {
-  position: relative;
-  z-index: 9998;
-
+  position: sticky;
+  top: var(--header-height);
   background: #000;
+  z-index: 9998;
   border-bottom: 1px solid rgba(255,255,255,0.08);
-
-  transition: transform 0.35s ease;
-}
-.header-hidden .filter-bar {
-  transform: translateY(calc(-1 * var(--header-height)));
 }
 
 .filter-inner {
@@ -604,24 +602,22 @@ nav a.active {
   padding: 14px var(--page-padding);
   display: flex;
   align-items: center;
-  gap: 40px; /* space between filter tabs and sort */
 }
 
-
-
-/* Filter buttons (All / Photo / Design) */
 .filter-tabs {
   display: flex;
-  gap: 0px;
+  gap: 28px;
 }
 
 .filter-btn {
+  position: relative;        /* required */
   background: none;
   border: none;
-  padding: 0px 0;
+  padding: 0;
+  margin: 0;
 
   font-family: var(--font-family);
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 
@@ -629,10 +625,32 @@ nav a.active {
   cursor: pointer;
 }
 
+/* underline */
+.filter-btn::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;              /* 👈 space below text */
+  width: 100%;
+  height: 1px;
+
+  background: #fff;
+
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: opacity 0.2s ease, transform 0.25s ease;
+}
+
 .filter-btn.active {
   color: #fff;
-  border-bottom: 1px solid #fff;
 }
+
+.filter-btn.active::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
 
 
 /* ------------------- SORT DROPDOWN  ------------------- */
