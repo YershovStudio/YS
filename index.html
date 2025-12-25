@@ -47,34 +47,20 @@
                         <div class="icon-nav">
 
                             <!-- GALLERY = SORT CONTROL -->
-                            <div class="sort-wrapper icon-sort">
-
-                                <button class="icon-sort-btn icon-gallery" id="sortToggle" aria-label="Filter gallery">
-                                    <img src="SVG/carrot.svg" alt="" class="caret-icon">
-                                   
-                                    <img src="SVG/icon-gallery.svg" alt="" class="nav-icon">
-  
-                                    
-                                </button>
-
-                                <div class="sort-dropdown" id="sortDropdown">
-                                    <button class="filter-option" data-filter="all">All</button>
-                                    <button class="filter-option" data-filter="photo">Photo</button>
-                                    <button class="filter-option" data-filter="design">Design</button>
-                                </div>
-
-                            </div>
-
+                            <a href="index.html" class="icon-link icon-gallery" aria-label="Filter gallery">
+                                <img src="SVG/icon-gallery.svg" alt="">
+                            </a>
+                            <a href="design.html" class="icon-link icon-design" aria-label="Design">
+                                <img src="SVG/design.svg" alt="">
+                            </a>
                             <!-- ABOUT -->
                             <a href="about.html" class="icon-link icon-about" aria-label="About">
                                 <img src="SVG/about.svg" alt="">
                             </a>
-
                             <!-- CONTACT -->
                             <a href="contact.html" class="icon-link icon-contact" aria-label="Contact">
                                 <img src="SVG/icon-contact.svg" alt="">
                             </a>
-
                         </div>
 
 
@@ -84,7 +70,7 @@
             </div>
         </header>
 
-        <!-- Secondary filter nav -->
+        <!-- 
         <div class="filter-bar">
             <div class="filter-inner">
                 <div class="filter-tabs">
@@ -94,8 +80,8 @@
                 <button class="filter-btn" data-filter="mixed-media">Stylized</button>
                 </div>
             </div>
-        </div>
-    </div>
+        </div>-->
+    </div> 
 
 
     <main class="page-content">
@@ -105,65 +91,79 @@
                 <div class="poster-item photo editorial">
                     <img src="Koray/KK Praying.png">
                 </div>
+
                 <div class="poster-item photo editorial">
                     <img src="Koray/KK Spotlight BW3.png">
                 </div>
+
                 <div class="poster-item editorial">
                     <img src="Koray/KK08.png">
                 </div>
+
                 <div class="poster-item photo editorial">
                     <img src="Koray/KK02.png">
                 </div>
-                <div class="poster-item photo">
+
+                <div class="poster-item photo editorial">
                     <img src="Koray/KK042.png">
                 </div>
-                <div class="poster-item photo classic">
-                    <img src="Images/pic5.jpg">
-                </div>
+
                 <div class="poster-item photo editorial">
                     <img src="Koray/KK05 BW.png">
                 </div>
-                <div class="poster-item design mixed-media">
-                    <img src="Images/eminem ig2.png">
-                </div>
-                <div class="poster-item photo classic">
-                    <img src="Images/pic4.png">
-                </div>      
+
                 <div class="poster-item photo editorial">
                     <img src="Images/white spotlight.png">
                 </div> 
+
                 <div class="poster-item photo editorial">
                     <img src="Images/sunniez3.png">
                 </div> 
-                <div class="poster-item photo mixed-media">
-                    <img src="Images/Loneliness.png">
-                </div>         
-                <div class="poster-item photo mixed-media">
-                    <img src="Images/trust.png">
-                </div>         
-                <div class="poster-item photo mixed-media">
-                    <img src="Images/despair.png">
-                </div>  
+
                 <div class="poster-item photo editorial">
-                    <img src="Images/maima.png">
+                    <img src="Images/mitchell2.jpg">
                 </div>
+
                 <div class="poster-item photo editorial">
                     <img src="Images/maima2.png">
                 </div>
+
+                <!---
+
                 <div class="poster-item photo mixed-media">
-                    <img src="Images/cape car.png">
+                    <img src="Images/Loneliness.png">
+                </div>  
+
+                <div class="poster-item photo classic">
+                    <img src="Images/pic4.png">
                 </div>
+
+                <div class="poster-item photo mixed-media">
+                    <img src="Images/trust.png">
+                </div>     
+
+                <div class="poster-item photo mixed-media">
+                    <img src="Images/despair.png">
+                </div>  
+
+
+                <div class="poster-item photo mixed-media">
+                    <img src="Images/cape car2.png">
+                </div>
+
                 <div class="poster-item photo mixed-media">
                     <img src="Images/cape car interior2.png">
                 </div>
 
                 <div class="poster-item photo classic">
-                    <img src="Images/woman.png">
+                    <img src="Images/cadillac2.jpg">
                 </div>
 
                 <div class="poster-item photo classic">
-                    <img src="Images/duck.png">
+                    <img src="Images/Duck2.jpg">
                 </div>
+
+                -->
 
             </div>
         </div>
@@ -202,7 +202,7 @@
 
 
         /* ---------------- FILTER DROPDOWN ---------------- */
-        /* ---------------- FILTERING ---------------- */
+        /* ---------------- FILTERING ---------------- */ 
 
         const filterOptions = document.querySelectorAll('.filter-option');
 
@@ -251,7 +251,7 @@
         });
 
         
-
+        /*
 
         const galleryItems = document.querySelectorAll('.poster-item');
 
@@ -274,6 +274,8 @@
 
             filterGallery(filter);
             }
+
+            
 
             // Secondary nav buttons
             document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -306,13 +308,15 @@
 
 
 
+        /*
         // default state
         document
             .querySelectorAll('.filter-option[data-filter="photo"]')
             .forEach(btn => btn.classList.add('active'));
 
         filterGallery('photo');
-
+            
+        */
 
 
         const lightbox = document.getElementById('lightbox');
@@ -340,6 +344,7 @@
         });
 
 
+            
 
 
     </script>
