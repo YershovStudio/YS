@@ -1,314 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YERSHOV STUDIO</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YERSHOV STUDIO — Design</title>
 
-    <link rel="icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    
+  <link rel="stylesheet" href="styles.css">
 
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 </head>
 
-
 <body class="page-design">
-    <div class="nav-wrapper">
-        <header>
-            <div class="header-container">
-                <div class="header-inner">
+  <div class="nav-wrapper">
 
-                    <!-- Left -->
-                    <div class="header-left">
-                        <a href="index.html" class="icon-link" aria-label="Home"></a>
-                            <img src="SVG/logo-mobile2.svg" class="logo-mobile">
-                            <img src="SVG/logo-desktop.svg" class="logo-desktop">
-                        </a>
-                    </div>
+    <!-- ================= NAVBAR ================= -->
+    <header>
+      <div class="header-container">
+        <div class="header-inner">
 
+          <!-- Left -->
+          <div class="header-left">
+            <a href="index.html" class="icon-link" aria-label="Home">
+              <img src="SVG/logo-mobile2.svg" class="logo-mobile" alt="Yershov Studio">
+              <img src="SVG/logo-desktop.svg" class="logo-desktop" alt="Yershov Studio">
+            </a>
+          </div>
 
-                    <!-- Right -->
-                    <div class="header-right">
+          <!-- Right -->
+          <div class="header-right">
 
-                        <!-- Desktop nav -->
-                        <nav class="nav-links desktop-nav">
-                            <a href="index.html">Photo</a>
-                            <a href="about.html">About</a>
-                            <a href="contact.html" class="contact-nav">Contact</a>
-                            <div class="sort-wrapper desktop-sort">
+            <!-- Desktop nav -->
+            <nav class="nav-links desktop-nav">
+              <a href="index.html">Photography</a>
+              <a href="design.html" class="active">Design</a>
+              <a href="about.html">About</a>
+              <a href="contact.html" class="contact-nav">Contact</a>
+            </nav>
 
-                                <button class="desktop-sort-btn active" id="sortToggleDesktop">
-                                    Design
-                                    <img src="SVG/carrot.svg" alt="" class="caret-icon">
-                                </button>
+            <!-- Mobile nav -->
+            <div class="icon-nav">
+              <a href="index.html" class="icon-link icon-gallery" aria-label="Photography">
+                <img src="SVG/icon-gallery.svg" alt="">
+              </a>
 
-                                <div class="sort-dropdown">
-                                    <button class="filter-option" data-filter="all">All</button>
-                                    <button class="filter-option" data-filter="photo">Photo</button>
-                                    <button class="filter-option" data-filter="design">Design</button>
-                                </div>
+              <a href="design.html" class="icon-link icon-design active" aria-label="Design">
+                <img src="SVG/design.svg" alt="">
+              </a>
 
-                            </div>
-            
-                        </nav>
+              <a href="about.html" class="icon-link icon-about" aria-label="About">
+                <img src="SVG/about.svg" alt="">
+              </a>
 
-                        <!-- Mobile nav -->
-                        <div class="icon-nav">
-
-                            <!-- GALLERY = SORT CONTROL -->
-                            <div class="sort-wrapper icon-sort">
-
-                                <button class="icon-sort-btn icon-gallery" id="sortToggle" aria-label="Filter gallery">
-                                    <img src="SVG/carrot.svg" alt="" class="caret-icon">
-                                   
-                                    <img src="SVG/icon-gallery.svg" alt="" class="nav-icon">
-  
-                                    
-                                </button>
-
-                                <div class="sort-dropdown" id="sortDropdown">
-                                    <button class="filter-option" data-filter="all">All</button>
-                                    <button class="filter-option" data-filter="photo">Photo</button>
-                                    <button class="filter-option" data-filter="design">Design</button>
-                                </div>
-
-                            </div>
-
-                            <!-- ABOUT -->
-                            <a href="about.html" class="icon-link icon-about" aria-label="About">
-                                <img src="SVG/about.svg" alt="">
-                            </a>
-
-                            <!-- CONTACT -->
-                            <a href="contact.html" class="icon-link icon-contact" aria-label="Contact">
-                                <img src="SVG/icon-contact.svg" alt="">
-                            </a>
-
-
-
-                        </div>
-
-
-                    </div>
-
-                </div>
+              <a href="contact.html" class="icon-link icon-contact" aria-label="Contact">
+                <img src="SVG/icon-contact.svg" alt="">
+              </a>
             </div>
-        </header>
 
-        <!-- Secondary filter nav -->
-        <div class="filter-bar">
-            <div class="filter-inner">
-                <div class="filter-tabs">
-                    <button class="filter-btn" data-filter="all">All</button>
-                    <button class="filter-btn active" data-filter="branding">Branding</button>
-                    <button class="filter-btn" data-filter="stylized">Stylized</button>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
+    </header>
+
+    <!-- ================= SECONDARY FILTER BAR ================= -->
+    <div class="filter-bar">
+      <div class="filter-inner">
+        <div class="filter-tabs">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="branding">Branding</button>
+          <button class="filter-btn" data-filter="posters">Posters</button>
+          <button class="filter-btn" data-filter="conceptual">Conceptual</button>
+        </div>
+      </div>
     </div>
 
+  </div>
 
-    <main class="page-content">
+  <!-- ================= CONTENT ================= -->
+  <main class="page-content">
+    <div class="container">
+      <div class="poster-grid">
 
-        <div class="container">
-            <div class="poster-grid">
-                <div class="poster-item branding">
-                    <img src="Koray/KK Spotlight BW3.png">
-                </div>
-                <div class="poster-item stylized">
-                    <img src="Images/eminem ig2.png">
-                </div>
-            </div>
+        <div class="poster-item posters">
+          <img src="Images/eminem ig2.png" alt="">
         </div>
-    </main>
 
+        <div class="poster-item posters">
+          <img src="Images/obg.png" alt="">
+        </div>
 
-    <!-- Lightbox -->
-    <div class="lightbox" id="lightbox">
-        <img src="" alt="">
+        <div class="poster-item conceptual">
+          <img src="Images/s&b refined 2.png" alt="">
+        </div>
+
+        <div class="poster-item conceptual">
+          <img src="Images/tank.png" alt="">
+        </div>
+
+        <div class="poster-item conceptual">
+          <img src="Images/bigfoot small.png" alt="">
+        </div>
+
+        <div class="poster-item conceptual">
+          <img src="Images/cench tee.png" alt="">
+        </div>
+        
+        <div class="poster-item conceptual">
+          <img src="Images/robot.png" alt="">
+        </div>
+
+        <div class="poster-item conceptual">
+          <img src="Images/Takeoff.png" alt="">
+        </div>
+
+        <div class="poster-item conceptual">
+          <img src="Images/solarfly.png" alt="">
+        </div>
+
+        <div class="poster-item conceptual">
+          <img src="Images/Hiline/hilinelogo.png" alt="">
+        </div>
+
+        <div class="poster-item conceptual">
+          <img src="Images/Hiline/bizcard mockup.png" alt="">
+        </div>
+
+         <div class="poster-item conceptual">
+          <img src="Images/Hiline/hiline sign 3.png" alt="">
+        </div>
+
+        <div class="poster-item conceptual">
+          <img src="Images/Wine Label/cabernet2.png" alt="">
+        </div>
+
+        <div class="poster-item conceptual">
+          <img src="Images/Wine Label/Riesling2.png" alt="">
+        </div>
+
+        <div class="poster-item conceptual">
+          <img src="Images/Wine Label/Rose2.png" alt="">
+        </div>
+
+        <div class="poster-item conceptual">
+          <img src="Images/Wine Label/Rose Bottle.png" alt="">
+        </div>
+        
+        
+        
+
+      </div>
     </div>
+  </main>
 
+  <!-- ================= LIGHTBOX ================= -->
+  <div class="lightbox" id="lightbox">
+    <img src="" alt="">
+  </div>
 
+  <!-- ================= SCRIPT ================= -->
+  <script>
+    /* ---------- HEADER HEIGHT ---------- */
+    const navWrapper = document.querySelector('.nav-wrapper');
 
-    <script>
+    function setNavHeight() {
+      document.documentElement.style.setProperty(
+        '--header-height',
+        `${navWrapper.getBoundingClientRect().height}px`
+      );
+    }
 
+    window.addEventListener('load', setNavHeight);
+    window.addEventListener('resize', setNavHeight);
+    setTimeout(setNavHeight, 50);
+    setTimeout(setNavHeight, 250);
 
-        /* ---------------- HEADER HEIGHT ---------------- */
+    /* ---------- HIDE NAV ON SCROLL ---------- */
+    let lastScrollY = window.scrollY;
 
-        const navWrapper = document.querySelector('.nav-wrapper');
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY;
+      if (Math.abs(currentScrollY - lastScrollY) < 10) return;
 
-        function setNavHeight() {
-            document.documentElement.style.setProperty(
-                '--header-height',
-                `${navWrapper.getBoundingClientRect().height}px`
-            );
-        }
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        navWrapper.classList.add('nav-hidden');
+      } else {
+        navWrapper.classList.remove('nav-hidden');
+      }
 
-        // Run at the right times
-        window.addEventListener('load', setNavHeight);
-        window.addEventListener('resize', setNavHeight);
+      lastScrollY = currentScrollY;
+    });
 
-        // Safari / font-load safety
-        setTimeout(setNavHeight, 50);
-        setTimeout(setNavHeight, 250);
+    /* ---------- FILTERING ---------- */
+    const galleryItems = document.querySelectorAll('.poster-item');
 
+    function filterGallery(type) {
+      galleryItems.forEach(item => {
+        const show = type === 'all' || item.classList.contains(type);
+        item.style.display = show ? 'inline-block' : 'none';
+      });
+    }
 
+    function applyFilter(filter) {
+      document
+        .querySelectorAll('.filter-btn')
+        .forEach(b => b.classList.remove('active'));
 
-        /* ---------------- FILTER DROPDOWN ---------------- */
-        /* ---------------- FILTERING ---------------- */
+      document
+        .querySelectorAll(`[data-filter="${filter}"]`)
+        .forEach(b => b.classList.add('active'));
 
-        const filterOptions = document.querySelectorAll('.filter-option');
+      filterGallery(filter);
+    }
 
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        applyFilter(btn.dataset.filter);
+      });
+    });
 
+    /* Default state */
+    filterGallery('all');
 
+    /* ---------- LIGHTBOX ---------- */
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
 
-        let lastScrollY = window.scrollY;
+    document.querySelectorAll('.poster-item img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
+      });
+    });
 
-        window.addEventListener('scroll', () => {
-        const currentScrollY = window.scrollY;
+    lightbox.addEventListener('click', () => {
+      lightbox.classList.remove('active');
+      lightboxImg.src = '';
+    });
 
-        if (Math.abs(currentScrollY - lastScrollY) < 10) return;
-
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
-            navWrapper.classList.add('nav-hidden');
-        } else {
-            navWrapper.classList.remove('nav-hidden');
-        }
-
-        lastScrollY = currentScrollY;
-        });
-
-        /* ---------------- GALLERY CONTROL ---------------- */
-
-
-       document.querySelectorAll('.sort-wrapper').forEach(wrapper => {
-            const button = wrapper.querySelector('button');
-
-            button.addEventListener('click', e => {
-                e.stopPropagation();
-                document.querySelectorAll('.sort-wrapper')
-                    .forEach(w => w.classList.remove('active'));
-
-                wrapper.classList.add('active');
-
-            });
-        });
-
-        document.addEventListener('click', () => {
-        document
-            .querySelectorAll('.sort-wrapper')
-            .forEach(w => w.classList.remove('active'));
-        });
-
-
-        const galleryItems = document.querySelectorAll('.poster-item');
-
-        function filterGallery(type) {
-        galleryItems.forEach(item => {
-            const show =
-            type === 'all' || item.classList.contains(type);
-            item.style.display = show ? 'inline-block' : 'none';
-        });
-        }
-
-        function applyFilter(filter) {
-            document
-                .querySelectorAll('.filter-btn, .filter-option')
-                .forEach(b => b.classList.remove('active'));
-
-            document
-                .querySelectorAll(`[data-filter="${filter}"]`)
-                .forEach(b => b.classList.add('active'));
-
-            filterGallery(filter);
-            }
-
-            // Secondary nav buttons
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                applyFilter(btn.dataset.filter);
-            });
-            });
-
-            // Dropdown buttons (mobile / desktop)
-            document.querySelectorAll('.filter-option').forEach(btn => {
-            btn.addEventListener('click', e => {
-                e.stopPropagation();
-                const filter = btn.dataset.filter;
-
-                // INDEX PAGE
-                if (document.body.classList.contains('page-gallery')) {
-                if (filter === 'design') {
-                    window.location.href = 'design.html';
-                    return;
-                }
-                applyFilter(filter);
-                }
-
-                // DESIGN PAGE
-                if (document.body.classList.contains('page-design')) {
-                if (filter === 'photo') {
-                    window.location.href = 'index.html';
-                    return;
-                }
-                applyFilter(filter);
-                }
-
-                document
-                .querySelectorAll('.sort-wrapper')
-                .forEach(w => w.classList.remove('active'));
-            });
-            });
-
-
-
-       // default state
-        filterGallery('branding');
-
-        document
-            .querySelectorAll('.filter-option[data-filter="branding"]')
-            .forEach(btn => btn.classList.add('active'));
-
-        document
-            .querySelectorAll('.filter-btn[data-filter="branding"]')
-            .forEach(btn => btn.classList.add('active'));
-
-
-
-
-
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = lightbox.querySelector('img');
-
-        document.querySelectorAll('.poster-item img').forEach(img => {
-            img.addEventListener('click', () => {
-                lightboxImg.src = img.src;
-                lightbox.classList.add('active');
-            });
-        });
-
-        // Close on click outside image
-        lightbox.addEventListener('click', () => {
-            lightbox.classList.remove('active');
-            lightboxImg.src = '';
-        });
-
-        // Close on ESC
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') {
-                lightbox.classList.remove('active');
-                lightboxImg.src = '';
-            }
-        });
-
-
-
-
-    </script>
-
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        lightbox.classList.remove('active');
+        lightboxImg.src = '';
+      }
+    });
+  </script>
 </body>
+</html>
