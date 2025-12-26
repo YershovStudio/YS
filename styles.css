@@ -528,12 +528,12 @@ nav a.active {
 }
 
 .page-about .icon-about img {
-  content: url("SVG/about-active.svg");
+  content: url("SVG/about-active2.svg");
 }
 
 /* CONTACT page */
 .page-contact .icon-contact img {
-  content: url("SVG/contact-active.svg");
+  content: url("SVG/contact-active2.svg");
 }
 
 /*
@@ -829,4 +829,13 @@ button:focus-visible {
   width: 100%;
   height: auto;
   display: block;
+}
+
+.about-text {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  font-size: 15px;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
 }
