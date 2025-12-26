@@ -22,7 +22,7 @@
   align-items: center;
   justify-content: space-between;
   /* padding: 20px 0; /* nav vertical padding */
-  padding: clamp(15px, 2vw, 20px) 0;
+  padding: clamp(10px, 2vw, 15px) 0;
   
 }
 
@@ -812,24 +812,29 @@ button:focus-visible {
 .about {
   max-width: 600px;
   width: 100%;
-
   padding-left: clamp(20px, 4vw, 60px);
   padding-right: clamp(20px, 4vw, 60px);
 
   display: flex;
   flex-direction: column;
-}
 
-.about-photo{
-  max-width: 150px;
   margin: 0 auto;
 }
 
+.about-photo {
+  display: flex;
+  padding-top: 50px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
 .about-photo img {
-  width: 100%;
+  width: 100%;                 /* ← allows shrinking */
+  max-width: 600px;            /* ← caps size on desktop */
   height: auto;
   display: block;
 }
+
 
 .about-text {
   hyphens: auto;
