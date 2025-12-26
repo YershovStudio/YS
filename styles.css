@@ -489,7 +489,7 @@ nav a.active {
     display: flex;
     align-items: center;
     gap: 30px; /* distance between nav links */
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.08em;
