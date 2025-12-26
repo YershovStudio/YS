@@ -131,8 +131,8 @@ body {
 
 /* Mobile icon active (current page) */
 .logo-desktop {
-    height: 30px;
-    max-height: 30px;
+    height: 25px;
+    max-height: 25px;
     width: auto;
     display: block;
 }
