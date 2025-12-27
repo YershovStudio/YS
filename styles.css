@@ -22,7 +22,7 @@
   align-items: center;
   justify-content: space-between;
   /* padding: 20px 0; /* nav vertical padding */
-  padding: clamp(10px, 2vw, 15px) 0;
+  padding: clamp(20px, 2vw, 50px) 0;
   
 }
 
