@@ -755,6 +755,14 @@ h1 {
   margin-bottom: 20px;
 }
 
+.contact p {
+  font-size: 14px;        /* adjust size */
+  line-height: 1.5;       /* readability */
+  margin-bottom: 32px;    /* space under sentence */
+  opacity: 0.85;          /* optional: soften */
+}
+
+
 /* Placeholder styling */
 input::placeholder,
 textarea::placeholder {
@@ -840,7 +848,7 @@ button:focus-visible {
   hyphens: auto;
   -webkit-hyphens: auto;
   -ms-hyphens: auto;
-  font-size: 15px;
+  font-size: clamp(13px, 1.2vw, 15px);
   line-height: 1.55;
   letter-spacing: -0.01em;
 }
