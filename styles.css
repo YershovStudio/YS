@@ -16,6 +16,32 @@
 
 }
 
+/* UI text: no selection */
+header,
+nav,
+.nav-wrapper,
+.nav-links,
+.icon-nav {
+  user-select: none;
+}
+
+/* Gallery behavior */
+.poster-grid,
+.poster-item,
+.poster-item img {
+  user-select: none;
+  cursor: zoom-in;
+}
+
+
+/* Prevent page-wide selection flash */
+html, body {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+
+
 /* navbar */
 .header-inner {
   display: flex;
@@ -72,6 +98,8 @@ body {
   transition: opacity 0.3s ease;
 
   z-index: 99999;
+  cursor: zoom-out;
+  
 }
 
 .lightbox.active {

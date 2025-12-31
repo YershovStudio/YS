@@ -118,16 +118,18 @@
                     <img src="Images/mitchell.jpg">
                 </div>
 
+                <!-- 
                  <div class="poster-item branding">
                     <img src="Images/mitchell xerox.jpg" alt="">
                 </div>
-
-                <div class="poster-item photo editorial">
-                    <img src="Images/wonder.jpg">
-                </div>
+                -->
 
                 <div class="poster-item photo editorial">
                     <img src="Images/maima2.png">
+                </div>
+
+                <div class="poster-item photo editorial">
+                    <img src="Images/wonder clean.jpg">
                 </div>
 
                 <!---
@@ -201,29 +203,40 @@
 
 
 
-        /* ---------------- FILTER DROPDOWN ---------------- */
-        /* ---------------- FILTERING ---------------- */ 
-
-        const filterOptions = document.querySelectorAll('.filter-option');
-
-
-
-
+        /* ---------- HIDE / SHOW NAV (VELOCITY + TOP OVERRIDE) ---------- */
         let lastScrollY = window.scrollY;
+        let lastTime = Date.now();
 
         window.addEventListener('scroll', () => {
         const currentScrollY = window.scrollY;
+        const currentTime = Date.now();
 
-        if (Math.abs(currentScrollY - lastScrollY) < 10) return;
+        // ALWAYS show nav at top of page
+        if (currentScrollY <= 45) {
+            navWrapper.classList.remove('nav-hidden');
+            lastScrollY = currentScrollY;
+            lastTime = currentTime;
+            return;
+        }
 
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        const deltaY = currentScrollY - lastScrollY;
+        const deltaTime = currentTime - lastTime;
+        const velocity = Math.abs(deltaY / deltaTime);
+
+        // Scroll down → hide
+        if (deltaY > 0 && currentScrollY > 100) {
             navWrapper.classList.add('nav-hidden');
-        } else {
+        }
+
+        // Fast scroll up → show
+        if (deltaY < 0 && velocity > 0.8) {
             navWrapper.classList.remove('nav-hidden');
         }
 
         lastScrollY = currentScrollY;
+        lastTime = currentTime;
         });
+
 
         /* ---------------- GALLERY CONTROL ---------------- */
 
@@ -319,29 +332,50 @@
         */
 
 
+        /* ---------- LIGHTBOX ---------- */
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = lightbox.querySelector('img');
 
+        // OPEN
         document.querySelectorAll('.poster-item img').forEach(img => {
-            img.addEventListener('click', () => {
-                lightboxImg.src = img.src;
-                lightbox.classList.add('active');
+        img.addEventListener('click', () => {
+            // Set image first
+            lightboxImg.src = img.src;
+
+            // Allow browser to paint before animating
+            requestAnimationFrame(() => {
+            lightbox.classList.add('active');
             });
         });
+        });
 
-        // Close on click outside image
-        lightbox.addEventListener('click', () => {
-            lightbox.classList.remove('active');
+        // CLOSE (shared logic)
+        function closeLightbox() {
+        lightbox.classList.remove('active');
+
+        // Wait for CSS animation before clearing
+        setTimeout(() => {
             lightboxImg.src = '';
+        }, 300); // must match CSS transition duration
+        }
+
+        // Click to close
+        lightbox.addEventListener('click', closeLightbox);
+
+        // ESC key to close
+        document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+            closeLightbox();
+        }
         });
 
-        // Close on ESC
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') {
-                lightbox.classList.remove('active');
-                lightboxImg.src = '';
-            }
-        });
+
+    document.querySelectorAll('.poster-item img').forEach(img => {
+      img.addEventListener('dblclick', e => {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+    });
 
 
             

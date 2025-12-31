@@ -13,9 +13,11 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
 </head>
 
 <body class="page-design">
+  
   <div class="nav-wrapper">
 
     <!-- ================= NAVBAR ================= -->
@@ -115,7 +117,7 @@
         </div>
         
         <div class="poster-item conceptual">
-          <img src="Images/robot.png" alt="">
+          <img src="Images/robot.jpg" alt="">
         </div>
 
         <div class="poster-item posters">
@@ -127,7 +129,11 @@
         </div>
 
         <div class="poster-item branding">
-          <img src="Images/Hiline/hilinelogo.png" alt="">
+          <img src="Images/Hiline/hilinelogo.jpg" alt="">
+        </div>
+
+        <div class="poster-item branding">
+          <img src="Images/quote.jpg" alt="">
         </div>
 
         <!--
@@ -184,21 +190,44 @@
     setTimeout(setNavHeight, 50);
     setTimeout(setNavHeight, 250);
 
-    /* ---------- HIDE NAV ON SCROLL ---------- */
+
+    /* ---------- HIDE / SHOW NAV (VELOCITY + TOP OVERRIDE) ---------- */
     let lastScrollY = window.scrollY;
+    let lastTime = Date.now();
 
     window.addEventListener('scroll', () => {
       const currentScrollY = window.scrollY;
-      if (Math.abs(currentScrollY - lastScrollY) < 10) return;
+      const currentTime = Date.now();
 
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      // ALWAYS show nav at top of page
+      if (currentScrollY <= 45) {
+        navWrapper.classList.remove('nav-hidden');
+        lastScrollY = currentScrollY;
+        lastTime = currentTime;
+        return;
+      }
+
+      const deltaY = currentScrollY - lastScrollY;
+      const deltaTime = currentTime - lastTime;
+      const velocity = Math.abs(deltaY / deltaTime);
+
+      // Scroll down → hide
+      if (deltaY > 0 && currentScrollY > 100) {
         navWrapper.classList.add('nav-hidden');
-      } else {
+      }
+
+      // Fast scroll up → show
+      if (deltaY < 0 && velocity > 0.8) {
         navWrapper.classList.remove('nav-hidden');
       }
 
       lastScrollY = currentScrollY;
+      lastTime = currentTime;
     });
+
+
+
+
 
     /* ---------- FILTERING ---------- 
     const galleryItems = document.querySelectorAll('.poster-item');
@@ -231,28 +260,57 @@
     /* Default state 
     filterGallery('all');
 
-    /* ---------- LIGHTBOX ---------- */
+
+   /* ---------- LIGHTBOX ---------- */
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = lightbox.querySelector('img');
 
+    // OPEN
     document.querySelectorAll('.poster-item img').forEach(img => {
       img.addEventListener('click', () => {
+        // Set image first
         lightboxImg.src = img.src;
-        lightbox.classList.add('active');
+
+        // Allow browser to paint before animating
+        requestAnimationFrame(() => {
+          lightbox.classList.add('active');
+        });
       });
     });
 
-    lightbox.addEventListener('click', () => {
+    // CLOSE (shared logic)
+    function closeLightbox() {
       lightbox.classList.remove('active');
-      lightboxImg.src = '';
-    });
 
+      // Wait for CSS animation before clearing
+      setTimeout(() => {
+        lightboxImg.src = '';
+      }, 300); // must match CSS transition duration
+    }
+
+    // Click to close
+    lightbox.addEventListener('click', closeLightbox);
+
+    // ESC key to close
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
-        lightbox.classList.remove('active');
-        lightboxImg.src = '';
+        closeLightbox();
       }
     });
+
+
+
+
+
+
+
+    document.querySelectorAll('.poster-item img').forEach(img => {
+      img.addEventListener('dblclick', e => {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+    });
+
   </script>
 </body>
 </html>

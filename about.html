@@ -124,29 +124,38 @@
         setTimeout(setNavHeight, 250);
 
 
-
-        /* ---------------- FILTER DROPDOWN ---------------- */
-        /* ---------------- FILTERING ---------------- */
-
-        const filterOptions = document.querySelectorAll('.filter-option');
-
-
-
-
+        /* ---------- HIDE / SHOW NAV (VELOCITY + TOP OVERRIDE) ---------- */
         let lastScrollY = window.scrollY;
+        let lastTime = Date.now();
 
         window.addEventListener('scroll', () => {
         const currentScrollY = window.scrollY;
+        const currentTime = Date.now();
 
-        if (Math.abs(currentScrollY - lastScrollY) < 10) return;
+        // ALWAYS show nav at top of page
+        if (currentScrollY <= 45) {
+            navWrapper.classList.remove('nav-hidden');
+            lastScrollY = currentScrollY;
+            lastTime = currentTime;
+            return;
+        }
 
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        const deltaY = currentScrollY - lastScrollY;
+        const deltaTime = currentTime - lastTime;
+        const velocity = Math.abs(deltaY / deltaTime);
+
+        // Scroll down → hide
+        if (deltaY > 0 && currentScrollY > 100) {
             navWrapper.classList.add('nav-hidden');
-        } else {
+        }
+
+        // Fast scroll up → show
+        if (deltaY < 0 && velocity > 0.8) {
             navWrapper.classList.remove('nav-hidden');
         }
 
         lastScrollY = currentScrollY;
+        lastTime = currentTime;
         });
 
         /* ---------------- GALLERY CONTROL ---------------- */
