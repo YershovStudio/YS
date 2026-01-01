@@ -116,7 +116,7 @@
                 </div>
 
                 <div class="poster-item photo editorial">
-                    <img src="Images/maima2.png"
+                    <img src="Images/maima.jpg"
                     data-caption="Studio work - November 2025">
                 </div>
 
@@ -248,9 +248,6 @@
             hideNav();
         }
 
-
-        /*
-
         /* -------- FAST SCROLL UP (TRIGGER) -------- */
         if (deltaY < 0 && velocity > 2.5 && !inGracePeriod) {
             showNav();
@@ -338,23 +335,36 @@
 
 
     document.querySelectorAll('.poster-item img').forEach(img => {
-      img.addEventListener('dblclick', e => {
-        e.preventDefault();
-        e.stopPropagation();
-      });
+        img.addEventListener('click', () => openLightbox(img));
     });
+
+
+    function openLightbox(img) {
+        lightboxImg.src = img.src;
+        lightboxCaption.textContent = img.dataset.caption || '';
+
+        document.body.classList.add('lightbox-open');
+
+        requestAnimationFrame(() => {
+            lightbox.classList.add('active');
+        });
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.classList.remove('lightbox-open');
+
+        setTimeout(() => {
+            lightboxImg.src = '';
+            lightboxCaption.textContent = '';
+        }, 300);
+    }
+
+
 
 
 
     // gallery hover states
-
-    document.querySelectorAll('.poster-item > img').forEach(img => {
-        const wrapper = document.createElement('div');
-        wrapper.className = 'poster-inner';
-
-        img.parentNode.insertBefore(wrapper, img);
-        wrapper.appendChild(img);
-    });  
 
     </script>
 
