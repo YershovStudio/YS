@@ -107,6 +107,35 @@ body {
   pointer-events: auto;
 }
 
+.lightbox-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Caption */
+.lightbox-caption {
+  max-width: 90vw;
+  font-size: clamp(9px, 1.1vw, 13px);
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  opacity: 0;
+
+  transform: translateY(6px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+
+  text-align: center;
+}
+
+/* Fade caption in when active */
+.lightbox.active .lightbox-caption {
+  opacity: 0.75;
+  transform: translateY(0);
+}
+
 .lightbox img {
   max-width: 90vw;
   max-height: 90vh;
@@ -141,8 +170,6 @@ body {
   columns: 300px;  /* 👈 image size control */
   column-gap: var(--gallery-gap);
 }
-        
-
 
 .poster-item {
   display:inline-block;
@@ -154,6 +181,42 @@ body {
   height:auto;
   object-fit: contain;
   border-radius: 0px; /* optional */
+}
+
+/* ----------- image hover states ------------ */
+
+.poster-inner {
+  display: block;
+  overflow: hidden; /* clips scale cleanly */
+}
+.poster-item:hover .poster-inner img {
+  transform: scale(1.03);
+  /* filter: brightness(0.9); */
+}
+
+/* Disable hover on touch */
+@media (hover: none) {
+  .poster-item:hover .poster-inner img {
+    transform: none;
+    filter: none;
+  }
+}
+
+
+.poster-inner img {
+  display: block;
+  width: 100%;
+  height: auto;
+
+  transform-origin: center center;
+  transition:
+    transform 1.00s cubic-bezier(0.50, 1, 0.36, 1),
+    filter 0.35s ease;
+  will-change: transform;
+
+  /* bezier values (0-1): x1 - controls when easing starts. y1 - how steeply speed increases. x2 - controls when slowing down begins. y2 - how gently it finishes */
+
+
 }
 
 

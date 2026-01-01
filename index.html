@@ -67,18 +67,6 @@
                 </div>
             </div>
         </header>
-
-        <!-- 
-        <div class="filter-bar">
-            <div class="filter-inner">
-                <div class="filter-tabs">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="classic">Classic</button>
-                <button class="filter-btn" data-filter="editorial">Editorial</button>
-                <button class="filter-btn" data-filter="mixed-media">Stylized</button>
-                </div>
-            </div>
-        </div>-->
     </div> 
 
 
@@ -86,103 +74,74 @@
 
         <div class="container">
             <div class="poster-grid">
-                <div class="poster-item photo editorial">
-                    <img src="Koray/KK Praying.png">
+                <div class="poster-item photo editorial">             
+                    <img
+                    src="Koray/KK Praying.png"
+                    data-caption="Studio work - December 2025">
                 </div>
 
                 <div class="poster-item photo editorial">
-                    <img src="Koray/KK Spotlight BW3.png">
+                    <img src="Koray/KK Spotlight BW3.png"
+                    data-caption="Studio work - December 2025">
                 </div>
 
                 <div class="poster-item editorial">
-                    <img src="Koray/KK08.png">
+                    <img src="Koray/KK08.png"
+                    data-caption="Studio work - December 2025">
                 </div>
 
                 <div class="poster-item photo editorial">
-                    <img src="Koray/KK02.png">
+                    <img src="Koray/KK02.png"
+                    data-caption="Studio work - December 2025">
                 </div>
 
                 <div class="poster-item photo editorial">
-                    <img src="Koray/KK042.png">
+                    <img src="Koray/KK042.png"
+                    data-caption="Studio work - December 2025">
                 </div>
 
                 <div class="poster-item photo editorial">
-                    <img src="Koray/KK05 BW.png">
+                    <img src="Koray/KK05 BW.png"
+                    data-caption="Studio work - December 2025">
                 </div>
 
                 <div class="poster-item photo editorial">
-                    <img src="Images/white spotlight.png">
+                    <img src="Images/white spotlight.png"
+                    data-caption="Studio work - December 2025">
                 </div> 
 
                 <div class="poster-item photo editorial">
-                    <img src="Images/mitchell.jpg">
-                </div>
-
-                <!-- 
-                 <div class="poster-item branding">
-                    <img src="Images/mitchell xerox.jpg" alt="">
-                </div>
-                -->
-
-                <div class="poster-item photo editorial">
-                    <img src="Images/maima2.png">
+                    <img src="Images/mitchell.jpg"
+                    data-caption="Studio work - November 2025">
                 </div>
 
                 <div class="poster-item photo editorial">
-                    <img src="Images/wonder.jpg">
+                    <img src="Images/maima2.png"
+                    data-caption="Studio work - November 2025">
                 </div>
 
-                <!---
-
-                <div class="poster-item photo mixed-media">
-                    <img src="Images/Loneliness.png">
-                </div>  
-
-                <div class="poster-item photo classic">
-                    <img src="Images/pic4.png">
+                <div class="poster-item photo editorial">
+                    <img src="Images/wonder.jpg"
+                    data-caption="Studio work - November 2025">
                 </div>
-
-                <div class="poster-item photo mixed-media">
-                    <img src="Images/trust.png">
-                </div>     
-
-                <div class="poster-item photo mixed-media">
-                    <img src="Images/despair.png">
-                </div>  
-
-
-                <div class="poster-item photo mixed-media">
-                    <img src="Images/cape car2.png">
-                </div>
-
-                <div class="poster-item photo mixed-media">
-                    <img src="Images/cape car interior2.png">
-                </div>
-
-                <div class="poster-item photo classic">
-                    <img src="Images/cadillac2.jpg">
-                </div>
-
-                <div class="poster-item photo classic">
-                    <img src="Images/Duck2.jpg">
-                </div>
-
-                -->
-
             </div>
         </div>
     </main>
 
 
-    <!-- Lightbox -->
+    <!-- Lightbox w/ image captions -->
     <div class="lightbox" id="lightbox">
-        <img src="" alt="">
+        <div class="lightbox-content">
+            <img src="" alt="">
+            <div class="lightbox-caption"></div>
+        </div>
     </div>
+
 
     <script>
 
 
-        /* ---------------- HEADER HEIGHT ---------------- */
+    /* ---------------- HEADER HEIGHT ---------------- */
 
         const navWrapper = document.querySelector('.nav-wrapper');
 
@@ -203,7 +162,52 @@
 
 
 
-          //* ---------- NAV VISIBILITY (FAST REVEAL + DECAY) ---------- */
+    //* ---------- NAV VISIBILITY (FAST REVEAL + DECAY + ) ---------- */
+
+
+
+
+    const NAV_REVEAL_ZONE = 50; // px from top (tweak this)
+
+    document.addEventListener('mousemove', e => {
+    // Only on desktop-like devices
+    if (window.innerWidth < 768) return;
+
+        if (e.clientY < NAV_REVEAL_ZONE) {
+            showNav();
+
+            // Restart idle hide
+            clearTimeout(hideTimeout);
+            hideTimeout = setTimeout(() => {
+                if (window.scrollY > 0 && !isNavHovered) {
+                    hideNav();
+                }
+            }, 1000);
+        }
+    });
+
+
+
+    let isNavHovered = false;
+    navWrapper.addEventListener('mouseenter', () => {
+        isNavHovered = true;
+        navWrapper.classList.remove('nav-hidden'); // force show
+    });
+
+    navWrapper.addEventListener('mouseleave', () => {
+        isNavHovered = false;
+
+        // Restart idle hide after hover ends
+        clearTimeout(hideTimeout);
+        hideTimeout = setTimeout(() => {
+            if (window.scrollY > 0 && !isNavHovered) {
+            hideNav();
+            }
+        }, 100); // 👈 same idle time as scroll
+    });
+
+
+
     let lastScrollY = window.scrollY;
     let lastTime = Date.now();
     let hideTimeout = null;
@@ -214,9 +218,12 @@
     }
 
     function hideNav() {
-        navWrapper.classList.add('nav-hidden');
-        inGracePeriod = false;
+        if (!isNavHovered) {
+            navWrapper.classList.add('nav-hidden');
+            inGracePeriod = false;
+        }
     }
+
 
     window.addEventListener('scroll', () => {
         const currentScrollY = window.scrollY;
@@ -224,12 +231,12 @@
 
         // ALWAYS visible at top
         if (currentScrollY <= 50) {
-        showNav();
-        clearTimeout(hideTimeout);
-        inGracePeriod = false;
-        lastScrollY = currentScrollY;
-        lastTime = currentTime;
-        return;
+            showNav();
+            clearTimeout(hideTimeout);
+            inGracePeriod = false;
+            lastScrollY = currentScrollY;
+            lastTime = currentTime;
+            return;
         }
 
         const deltaY = currentScrollY - lastScrollY;
@@ -237,21 +244,24 @@
         const velocity = Math.abs(deltaY / deltaTime);
 
         /* -------- SCROLL DOWN -------- */
-        if (deltaY > 0 && currentScrollY > 20 && !inGracePeriod) {
-        hideNav();
+        if (deltaY > 0 && currentScrollY > 20 && !inGracePeriod && !isNavHovered) {
+            hideNav();
         }
 
-        /* -------- FAST SCROLL UP (TRIGGER) -------- */
-        if (deltaY < 0 && velocity > 1.8 && !inGracePeriod) {
-        showNav();
-        inGracePeriod = true;
 
-        clearTimeout(hideTimeout);
-        hideTimeout = setTimeout(() => {
-            if (window.scrollY > 0) {
-            hideNav();
-            }
-        }, 2500); // 👈 grace period
+        /*
+
+        /* -------- FAST SCROLL UP (TRIGGER) -------- */
+        if (deltaY < 0 && velocity > 2.5 && !inGracePeriod) {
+            showNav();
+            inGracePeriod = true;
+
+            clearTimeout(hideTimeout);
+            hideTimeout = setTimeout(() => {
+                if (window.scrollY > 0 && !isNavHovered){     
+                    hideNav();
+                }
+            }, 2500); // 👈 grace period
         }
 
         // IMPORTANT:
@@ -288,100 +298,33 @@
         });
 
         
-        /*
-
-        const galleryItems = document.querySelectorAll('.poster-item');
-
-        function filterGallery(type) {
-        galleryItems.forEach(item => {
-            const show =
-            type === 'all' || item.classList.contains(type);
-            item.style.display = show ? 'inline-block' : 'none';
-        });
-        }
-
-        function applyFilter(filter) {
-            document
-                .querySelectorAll('.filter-btn, .filter-option')
-                .forEach(b => b.classList.remove('active'));
-
-            document
-                .querySelectorAll(`[data-filter="${filter}"]`)
-                .forEach(b => b.classList.add('active'));
-
-            filterGallery(filter);
-            }
-
-            
-
-            // Secondary nav buttons
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                applyFilter(btn.dataset.filter);
-            });
-            });
-
-            document.querySelectorAll('.filter-option').forEach(btn => {
-            btn.addEventListener('click', e => {
-                e.stopPropagation();
-
-                const filter = btn.dataset.filter;
-
-                // ✅ SPECIAL CASE: Design = navigate away
-                if (filter === 'design' && document.body.classList.contains('page-gallery')) {
-                window.location.href = 'design.html';
-                return;
-                }
-
-                // Otherwise → normal filtering
-                applyFilter(filter);
-
-                document
-                .querySelectorAll('.sort-wrapper')
-                .forEach(w => w.classList.remove('active'));
-            });
-            });
-
-
-
-
-        /*
-        // default state
-        document
-            .querySelectorAll('.filter-option[data-filter="photo"]')
-            .forEach(btn => btn.classList.add('active'));
-
-        filterGallery('photo');
-            
-        */
-
-
         /* ---------- LIGHTBOX ---------- */
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = lightbox.querySelector('img');
+        const lightboxCaption = lightbox.querySelector('.lightbox-caption');
 
         // OPEN
         document.querySelectorAll('.poster-item img').forEach(img => {
-        img.addEventListener('click', () => {
-            // Set image first
-            lightboxImg.src = img.src;
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightboxCaption.textContent = img.dataset.caption || '';
 
-            // Allow browser to paint before animating
-            requestAnimationFrame(() => {
-            lightbox.classList.add('active');
+                requestAnimationFrame(() => {
+                lightbox.classList.add('active');
+                });
             });
-        });
         });
 
         // CLOSE (shared logic)
         function closeLightbox() {
         lightbox.classList.remove('active');
 
-        // Wait for CSS animation before clearing
         setTimeout(() => {
             lightboxImg.src = '';
-        }, 300); // must match CSS transition duration
+            lightboxCaption.textContent = '';
+        }, 300);
         }
+
 
         // Click to close
         lightbox.addEventListener('click', closeLightbox);
@@ -402,8 +345,16 @@
     });
 
 
-            
 
+    // gallery hover states
+
+    document.querySelectorAll('.poster-item > img').forEach(img => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'poster-inner';
+
+        img.parentNode.insertBefore(wrapper, img);
+        wrapper.appendChild(img);
+    });  
 
     </script>
 
