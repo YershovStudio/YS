@@ -129,7 +129,7 @@
                 </div>
 
                 <div class="poster-item photo editorial">
-                    <img src="Images/wonder clean.jpg">
+                    <img src="Images/wonder.jpg">
                 </div>
 
                 <!---
@@ -203,39 +203,63 @@
 
 
 
-        /* ---------- HIDE / SHOW NAV (VELOCITY + TOP OVERRIDE) ---------- */
-        let lastScrollY = window.scrollY;
-        let lastTime = Date.now();
+          //* ---------- NAV VISIBILITY (FAST REVEAL + DECAY) ---------- */
+    let lastScrollY = window.scrollY;
+    let lastTime = Date.now();
+    let hideTimeout = null;
+    let inGracePeriod = false;
 
-        window.addEventListener('scroll', () => {
+    function showNav() {
+        navWrapper.classList.remove('nav-hidden');
+    }
+
+    function hideNav() {
+        navWrapper.classList.add('nav-hidden');
+        inGracePeriod = false;
+    }
+
+    window.addEventListener('scroll', () => {
         const currentScrollY = window.scrollY;
         const currentTime = Date.now();
 
-        // ALWAYS show nav at top of page
-        if (currentScrollY <= 45) {
-            navWrapper.classList.remove('nav-hidden');
-            lastScrollY = currentScrollY;
-            lastTime = currentTime;
-            return;
+        // ALWAYS visible at top
+        if (currentScrollY <= 50) {
+        showNav();
+        clearTimeout(hideTimeout);
+        inGracePeriod = false;
+        lastScrollY = currentScrollY;
+        lastTime = currentTime;
+        return;
         }
 
         const deltaY = currentScrollY - lastScrollY;
         const deltaTime = currentTime - lastTime;
         const velocity = Math.abs(deltaY / deltaTime);
 
-        // Scroll down → hide
-        if (deltaY > 0 && currentScrollY > 100) {
-            navWrapper.classList.add('nav-hidden');
+        /* -------- SCROLL DOWN -------- */
+        if (deltaY > 0 && currentScrollY > 20 && !inGracePeriod) {
+        hideNav();
         }
 
-        // Fast scroll up → show
-        if (deltaY < 0 && velocity > 0.8) {
-            navWrapper.classList.remove('nav-hidden');
+        /* -------- FAST SCROLL UP (TRIGGER) -------- */
+        if (deltaY < 0 && velocity > 1.8 && !inGracePeriod) {
+        showNav();
+        inGracePeriod = true;
+
+        clearTimeout(hideTimeout);
+        hideTimeout = setTimeout(() => {
+            if (window.scrollY > 0) {
+            hideNav();
+            }
+        }, 2500); // 👈 grace period
         }
+
+        // IMPORTANT:
+        // Slow scrolling during grace does NOT reset the timer
 
         lastScrollY = currentScrollY;
         lastTime = currentTime;
-        });
+    });
 
 
         /* ---------------- GALLERY CONTROL ---------------- */
