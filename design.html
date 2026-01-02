@@ -87,14 +87,10 @@
       <div class="poster-grid">
 
         <div class="poster-item posters">
-          <img src="Images/eminem ig2.png" alt="">
+          <img src="Images/eminem ig2.png"
+          data-caption="Collage-style poster developed from a Rolling Stone cover - December 2025">
         </div>
 
-        <!-- 
-        <div class="poster-item posters">
-          <img src="Images/obg.png" alt="">
-        </div>
-      -->
         <div class="poster-item branding">
           <img src="Images/cench.jpg" alt="">
         </div>
@@ -111,21 +107,6 @@
           <img src="Images/camera.jpg" alt="">
         </div>
 
-        <!--
-        <div class="poster-item branding">
-          <img src="Images/bigfoot.jpg" alt="">
-        </div>
-      -->
-        <!--
-        <div class="poster-item conceptual">
-          <img src="Images/robot.jpg" alt="">
-        </div>
-      -->
-        <!--
-        <div class="poster-item posters">
-          <img src="Images/Takeoff.jpg" alt="">
-        </div>
-      -->
         <div class="poster-item conceptual">
           <img src="Images/solarfly.png" alt="">
         </div>
@@ -138,17 +119,9 @@
           <img src="Images/quote.jpg" alt="">
         </div>
 
-        <!--
         <div class="poster-item branding">
-          <img src="Images/Hiline/bizcard mockup.png" alt="">
-        </div>
-        
-         <div class="poster-item branding">
-          <img src="Images/Hiline/hiline sign 3.png" alt="">
-        </div>
-        -->
-        <div class="poster-item branding">
-          <img src="Images/Wine Label/cabernet2.png" alt="">
+          <img src="Images/Wine Label/cabernet2.png"
+          data-caption="Wine label inspired by the Surrealism movement. December 2025.">
         </div>
 
         <div class="poster-item branding">
@@ -156,7 +129,8 @@
         </div>
         
         <div class="poster-item branding">
-          <img src="Images/g3letterform.jpg" alt="">
+          <img src="Images/g3letterform.jpg"
+          data-caption="Custom letterform created by combining a letter and number. October 2025.">
         </div>
 
         <div class="poster-item branding">
@@ -170,175 +144,243 @@
     </div>
   </main>
 
-  <!-- ================= LIGHTBOX ================= -->
-  <div class="lightbox" id="lightbox">
-    <img src="" alt="">
-  </div>
-
-  <!-- ================= SCRIPT ================= -->
-  <script>
-    /* ---------- HEADER HEIGHT ---------- */
-    const navWrapper = document.querySelector('.nav-wrapper');
-
-    function setNavHeight() {
-      document.documentElement.style.setProperty(
-        '--header-height',
-        `${navWrapper.getBoundingClientRect().height}px`
-      );
-    }
-
-    window.addEventListener('load', setNavHeight);
-    window.addEventListener('resize', setNavHeight);
-    setTimeout(setNavHeight, 50);
-    setTimeout(setNavHeight, 250);
+  <!-- Lightbox w/ image captions -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <img src="" alt="">
+            <div class="lightbox-caption"></div>
+        </div>
+    </div>
 
 
-    //* ---------- NAV VISIBILITY (FAST REVEAL + DECAY) ---------- */
-  let lastScrollY = window.scrollY;
-  let lastTime = Date.now();
-  let hideTimeout = null;
-  let inGracePeriod = false;
+    <script>
 
-  function showNav() {
-    navWrapper.classList.remove('nav-hidden');
-  }
 
-  function hideNav() {
-    navWrapper.classList.add('nav-hidden');
-    inGracePeriod = false;
-  }
+    /* ---------------- HEADER HEIGHT ---------------- */
 
-  window.addEventListener('scroll', () => {
-    const currentScrollY = window.scrollY;
-    const currentTime = Date.now();
+        const navWrapper = document.querySelector('.nav-wrapper');
 
-    // ALWAYS visible at top
-    if (currentScrollY <= 50) {
-      showNav();
-      clearTimeout(hideTimeout);
-      inGracePeriod = false;
-      lastScrollY = currentScrollY;
-      lastTime = currentTime;
-      return;
-    }
-
-    const deltaY = currentScrollY - lastScrollY;
-    const deltaTime = currentTime - lastTime;
-    const velocity = Math.abs(deltaY / deltaTime);
-
-    /* -------- SCROLL DOWN -------- */
-    if (deltaY > 0 && currentScrollY > 20 && !inGracePeriod) {
-      hideNav();
-    }
-
-    /* -------- FAST SCROLL UP (TRIGGER) -------- */
-    if (deltaY < 0 && velocity > 1.8 && !inGracePeriod) {
-      showNav();
-      inGracePeriod = true;
-
-      clearTimeout(hideTimeout);
-      hideTimeout = setTimeout(() => {
-        if (window.scrollY > 0) {
-          hideNav();
+        function setNavHeight() {
+            document.documentElement.style.setProperty(
+                '--header-height',
+                `${navWrapper.getBoundingClientRect().height}px`
+            );
         }
-      }, 2500); // 👈 grace period
-    }
 
-    // IMPORTANT:
-    // Slow scrolling during grace does NOT reset the timer
+        // Run at the right times
+        window.addEventListener('load', setNavHeight);
+        window.addEventListener('resize', setNavHeight);
 
-    lastScrollY = currentScrollY;
-    lastTime = currentTime;
-  });
-
+        // Safari / font-load safety
+        setTimeout(setNavHeight, 50);
+        setTimeout(setNavHeight, 250);
 
 
 
+    //* ---------- NAV VISIBILITY (FAST REVEAL + DECAY + ) ---------- */
 
 
 
-    /* ---------- FILTERING ---------- 
-    const galleryItems = document.querySelectorAll('.poster-item');
 
-    function filterGallery(type) {
-      galleryItems.forEach(item => {
-        const show = type === 'all' || item.classList.contains(type);
-        item.style.display = show ? 'inline-block' : 'none';
-      });
-    }
+    const NAV_REVEAL_ZONE = 50; // px from top (tweak this)
 
-    function applyFilter(filter) {
-      document
-        .querySelectorAll('.filter-btn')
-        .forEach(b => b.classList.remove('active'));
+    document.addEventListener('mousemove', e => {
+    // Only on desktop-like devices
+    if (window.innerWidth < 768) return;
 
-      document
-        .querySelectorAll(`[data-filter="${filter}"]`)
-        .forEach(b => b.classList.add('active'));
+        if (e.clientY < NAV_REVEAL_ZONE) {
+            showNav();
 
-      filterGallery(filter);
-    }
-
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        applyFilter(btn.dataset.filter);
-      });
+            // Restart idle hide
+            clearTimeout(hideTimeout);
+            hideTimeout = setTimeout(() => {
+                if (window.scrollY > 0 && !isNavHovered) {
+                    hideNav();
+                }
+            }, 1000);
+        }
     });
 
-    /* Default state 
-    filterGallery('all');
 
 
-   /* ---------- LIGHTBOX ---------- */
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = lightbox.querySelector('img');
+    let isNavHovered = false;
+    navWrapper.addEventListener('mouseenter', () => {
+        isNavHovered = true;
+        navWrapper.classList.remove('nav-hidden'); // force show
+    });
 
-    // OPEN
-    document.querySelectorAll('.poster-item img').forEach(img => {
-      img.addEventListener('click', () => {
-        // Set image first
-        lightboxImg.src = img.src;
+    navWrapper.addEventListener('mouseleave', () => {
+        isNavHovered = false;
 
-        // Allow browser to paint before animating
-        requestAnimationFrame(() => {
-          lightbox.classList.add('active');
+        // Restart idle hide after hover ends
+        clearTimeout(hideTimeout);
+        hideTimeout = setTimeout(() => {
+            if (window.scrollY > 0 && !isNavHovered) {
+            hideNav();
+            }
+        }, 100); // 👈 same idle time as scroll
+    });
+
+
+
+    let lastScrollY = window.scrollY;
+    let lastTime = Date.now();
+    let hideTimeout = null;
+    let inGracePeriod = false;
+
+    function showNav() {
+        navWrapper.classList.remove('nav-hidden');
+    }
+
+    function hideNav() {
+        if (!isNavHovered) {
+            navWrapper.classList.add('nav-hidden');
+            inGracePeriod = false;
+        }
+    }
+
+
+    window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+        const currentTime = Date.now();
+
+        // ALWAYS visible at top
+        if (currentScrollY <= 50) {
+            showNav();
+            clearTimeout(hideTimeout);
+            inGracePeriod = false;
+            lastScrollY = currentScrollY;
+            lastTime = currentTime;
+            return;
+        }
+
+        const deltaY = currentScrollY - lastScrollY;
+        const deltaTime = currentTime - lastTime;
+        const velocity = Math.abs(deltaY / deltaTime);
+
+        /* -------- SCROLL DOWN -------- */
+        if (deltaY > 0 && currentScrollY > 20 && !inGracePeriod && !isNavHovered) {
+            hideNav();
+        }
+
+        /* -------- FAST SCROLL UP (TRIGGER) -------- */
+        if (deltaY < 0 && velocity > 2.5 && !inGracePeriod) {
+            showNav();
+            inGracePeriod = true;
+
+            clearTimeout(hideTimeout);
+            hideTimeout = setTimeout(() => {
+                if (window.scrollY > 0 && !isNavHovered){     
+                    hideNav();
+                }
+            }, 2500); // 👈 grace period
+        }
+
+        // IMPORTANT:
+        // Slow scrolling during grace does NOT reset the timer
+
+        lastScrollY = currentScrollY;
+        lastTime = currentTime;
+    });
+
+
+        /* ---------------- GALLERY CONTROL ---------------- */
+
+
+        const isGalleryPage = document.body.classList.contains('page-gallery');
+
+        document.querySelectorAll('.sort-wrapper').forEach(wrapper => {
+        const button = wrapper.querySelector('button');
+
+        button.addEventListener('click', (e) => {
+            e.stopPropagation();
+
+            const isOpen = wrapper.classList.contains('active');
+
+            // Close all dropdowns first
+            document
+            .querySelectorAll('.sort-wrapper')
+            .forEach(w => w.classList.remove('active'));
+
+            // Toggle THIS one
+            if (!isOpen) {
+            wrapper.classList.add('active');
+            }
         });
-      });
-    });
+        });
 
-    // CLOSE (shared logic)
-    function closeLightbox() {
-      lightbox.classList.remove('active');
+        
+        /* ---------- LIGHTBOX ---------- */
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = lightbox.querySelector('img');
+        const lightboxCaption = lightbox.querySelector('.lightbox-caption');
 
-      // Wait for CSS animation before clearing
-      setTimeout(() => {
-        lightboxImg.src = '';
-      }, 300); // must match CSS transition duration
-    }
+        // OPEN
+        document.querySelectorAll('.poster-item img').forEach(img => {
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightboxCaption.textContent = img.dataset.caption || '';
 
-    // Click to close
-    lightbox.addEventListener('click', closeLightbox);
+                requestAnimationFrame(() => {
+                lightbox.classList.add('active');
+                });
+            });
+        });
 
-    // ESC key to close
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') {
-        closeLightbox();
-      }
-    });
+        // CLOSE (shared logic)
+        function closeLightbox() {
+        lightbox.classList.remove('active');
+
+        setTimeout(() => {
+            lightboxImg.src = '';
+            lightboxCaption.textContent = '';
+        }, 300);
+        }
 
 
+        // Click to close
+        lightbox.addEventListener('click', closeLightbox);
 
-
-
+        // ESC key to close
+        document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+            closeLightbox();
+        }
+        });
 
 
     document.querySelectorAll('.poster-item img').forEach(img => {
-      img.addEventListener('dblclick', e => {
-        e.preventDefault();
-        e.stopPropagation();
-      });
+        img.addEventListener('click', () => openLightbox(img));
     });
 
-  </script>
+
+    function openLightbox(img) {
+        lightboxImg.src = img.src;
+        lightboxCaption.textContent = img.dataset.caption || '';
+
+        document.body.classList.add('lightbox-open');
+
+        requestAnimationFrame(() => {
+            lightbox.classList.add('active');
+        });
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.classList.remove('lightbox-open');
+
+        setTimeout(() => {
+            lightboxImg.src = '';
+            lightboxCaption.textContent = '';
+        }, 300);
+    }
+
+
+
+
+
+    // gallery hover states
+
+    </script>
 </body>
 </html>
