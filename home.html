@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHOTO | YS</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <link rel="icon" type="image/svg+xml" href="/favicon2/Artboard 1.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon2/favi32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon2/favi16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon2/favi180.png">
+</head>
+
+
+<body class="page-home">
+    <div class="page-shell">
+        <div class="nav-wrapper">
+            <header>
+                <div class="header-container">
+                    <div class="header-inner">
+ 
+                        <!-- Left -->
+                        <div class="header-left">
+                            <a href="home.html" class="icon-link" aria-label="Home">
+                                <img src="SVG/logo-mobile2.svg" class="logo-mobile" alt="">
+                                <img src="SVG/logo-desktop4.svg" class="logo-desktop" alt="">
+                            </a>
+                        </div>
+ 
+                        <!-- Right -->
+                        <div class="header-right">
+ 
+                            <!-- Desktop nav -->
+                            <nav class="nav-links desktop-nav">
+                                <a href="home.html" class="active">Work</a>
+                                <a href="about.html">About</a>
+                                <a href="contact.html" class="contact-nav">Contact</a>
+                            </nav>
+ 
+                            <!-- Mobile nav -->
+                            <div class="icon-nav">
+                                <a href="about.html" class="icon-link icon-about" aria-label="About">
+                                    <img src="SVG/about-2.svg" alt="">
+                                </a>
+                                <a href="contact.html" class="icon-link icon-contact" aria-label="Contact">
+                                    <img src="SVG/contact-2.svg" alt="">
+                                </a>
+                            </div>
+ 
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </div>
+ 
+ 
+        <main class="page-content">
+            <div class="container">
+                <div class="project-grid">
+ 
+                    <!-- Project 1: Koray -->
+                    <a href="index.html" class="project-banner">
+                        <img src="Koray/KK Praying.png" alt="Koray K. — Studio portraits">
+                        <div class="project-label">
+                            Koray K.
+                            <span>Studio — December 2025</span>
+                        </div>
+                    </a>
+ 
+                    <!-- Project 2: Graphic Design -->
+                    <a href="design.html" class="project-banner">
+                        <!-- Replace with your design cover image -->
+                        <img src="Images/design-cover.jpg" alt="Graphic Design work">
+                        <div class="project-label">
+                            Graphic Design
+                            <span>Selected works</span>
+                        </div>
+                    </a>
+ 
+                    <!-- Project 3: Add your next project here -->
+                    <a href="#" class="project-banner">
+                        <!-- Replace src and href -->
+                        <img src="Images/project3-cover.jpg" alt="Project name">
+                        <div class="project-label">
+                            Project Name
+                            <span>Subtitle</span>
+                        </div>
+                    </a>
+ 
+                </div>
+            </div>
+        </main>
+ 
+ 
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <span class="footer-left">© 2026</span>
+                <span class="footer-right">CREATED BY OLEG YERSHOV</span>
+            </div>
+        </footer>
+    </div>
+ 
+
+    <script>
+
+
+    /* ---------------- HEADER HEIGHT ---------------- */
+
+        const navWrapper = document.querySelector('.nav-wrapper');
+
+        function setNavHeight() {
+            document.documentElement.style.setProperty(
+                '--header-height',
+                `${navWrapper.getBoundingClientRect().height}px`
+            );
+        }
+
+        // Run at the right times
+        window.addEventListener('load', setNavHeight);
+        window.addEventListener('resize', setNavHeight);
+
+        // Safari / font-load safety
+        setTimeout(setNavHeight, 50);
+        setTimeout(setNavHeight, 250);
+
+
+
+    //* ---------- NAV VISIBILITY (FAST REVEAL + DECAY + ) ---------- */
+
+
+
+
+    const NAV_REVEAL_ZONE = 50; // px from top (tweak this)
+
+    document.addEventListener('mousemove', e => {
+    // Only on desktop-like devices
+    if (window.innerWidth < 768) return;
+
+        if (e.clientY < NAV_REVEAL_ZONE) {
+            showNav();
+
+            // Restart idle hide
+            clearTimeout(hideTimeout);
+            hideTimeout = setTimeout(() => {
+                if (window.scrollY > 0 && !isNavHovered) {
+                    hideNav();
+                }
+            }, 1000);
+        }
+    });
+
+
+
+    let isNavHovered = false;
+    navWrapper.addEventListener('mouseenter', () => {
+        isNavHovered = true;
+        navWrapper.classList.remove('nav-hidden'); // force show
+    });
+
+    navWrapper.addEventListener('mouseleave', () => {
+        isNavHovered = false;
+
+        // Restart idle hide after hover ends
+        clearTimeout(hideTimeout);
+        hideTimeout = setTimeout(() => {
+            if (window.scrollY > 0 && !isNavHovered) {
+            hideNav();
+            }
+        }, 100); // 👈 same idle time as scroll
+    });
+
+
+
+    let lastScrollY = window.scrollY;
+    let lastTime = Date.now();
+    let hideTimeout = null;
+    let inGracePeriod = false;
+
+    function showNav() {
+        navWrapper.classList.remove('nav-hidden');
+    }
+
+    function hideNav() {
+        if (!isNavHovered) {
+            navWrapper.classList.add('nav-hidden');
+            inGracePeriod = false;
+        }
+    }
+
+
+    window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+        const currentTime = Date.now();
+
+        // ALWAYS visible at top
+        if (currentScrollY <= 50) {
+            showNav();
+            clearTimeout(hideTimeout);
+            inGracePeriod = false;
+            lastScrollY = currentScrollY;
+            lastTime = currentTime;
+            return;
+        }
+
+        const deltaY = currentScrollY - lastScrollY;
+        const deltaTime = currentTime - lastTime;
+        const velocity = Math.abs(deltaY / deltaTime);
+
+        /* -------- SCROLL DOWN -------- */
+        if (deltaY > 0 && currentScrollY > 20 && !inGracePeriod && !isNavHovered) {
+            hideNav();
+        }
+
+        /* -------- FAST SCROLL UP (TRIGGER) -------- */
+        if (deltaY < 0 && velocity > 2.5 && !inGracePeriod) {
+            showNav();
+            inGracePeriod = true;
+
+            clearTimeout(hideTimeout);
+            hideTimeout = setTimeout(() => {
+                if (window.scrollY > 0 && !isNavHovered){     
+                    hideNav();
+                }
+            }, 2500); // 👈 grace period
+        }
+
+        // IMPORTANT:
+        // Slow scrolling during grace does NOT reset the timer
+
+        lastScrollY = currentScrollY;
+        lastTime = currentTime;
+    });
+
+
+        /* ---------------- GALLERY CONTROL ---------------- */
+
+
+        const isGalleryPage = document.body.classList.contains('page-gallery');
+
+        document.querySelectorAll('.sort-wrapper').forEach(wrapper => {
+        const button = wrapper.querySelector('button');
+
+        button.addEventListener('click', (e) => {
+            e.stopPropagation();
+
+            const isOpen = wrapper.classList.contains('active');
+
+            // Close all dropdowns first
+            document
+            .querySelectorAll('.sort-wrapper')
+            .forEach(w => w.classList.remove('active'));
+
+            // Toggle THIS one
+            if (!isOpen) {
+            wrapper.classList.add('active');
+            }
+        });
+        });
+
+        
+        /* ---------- LIGHTBOX ---------- */
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = lightbox.querySelector('img');
+        const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+
+        // OPEN
+        document.querySelectorAll('.poster-item img').forEach(img => {
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightboxCaption.textContent = img.dataset.caption || '';
+
+                requestAnimationFrame(() => {
+                lightbox.classList.add('active');
+                });
+            });
+        });
+
+        // CLOSE (shared logic)
+        function closeLightbox() {
+        lightbox.classList.remove('active');
+
+        setTimeout(() => {
+            lightboxImg.src = '';
+            lightboxCaption.textContent = '';
+        }, 300);
+        }
+
+
+        // Click to close
+        lightbox.addEventListener('click', closeLightbox);
+
+        // ESC key to close
+        document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+            closeLightbox();
+        }
+        });
+
+
+    document.querySelectorAll('.poster-item img').forEach(img => {
+        img.addEventListener('click', () => openLightbox(img));
+    });
+
+
+    function openLightbox(img) {
+        lightboxImg.src = img.src;
+        lightboxCaption.textContent = img.dataset.caption || '';
+
+        document.body.classList.add('lightbox-open');
+
+        requestAnimationFrame(() => {
+            lightbox.classList.add('active');
+        });
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.classList.remove('lightbox-open');
+
+        setTimeout(() => {
+            lightboxImg.src = '';
+            lightboxCaption.textContent = '';
+        }, 300);
+    }
+
+
+
+
+
+    // gallery hover states
+
+    </script>
+
+</body>
+</html>

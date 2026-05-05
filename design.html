@@ -15,6 +15,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon2/favi180.png">
 </head>
 
+
 <body class="page-design">
   <div class="page-shell">
   
@@ -24,10 +25,9 @@
       <header>
         <div class="header-container">
           <div class="header-inner">
-
-            <!-- Left -->
+            
             <div class="header-left">
-              <a href="index.html" class="icon-link" aria-label="Home">
+              <a href="index.html" class="icon-link">
                 <img src="SVG/logo-mobile2.svg" class="logo-mobile" alt="Yershov Studio">
                 <img src="SVG/logo-desktop4.svg" class="logo-desktop" alt="Yershov Studio">
               </a>
@@ -35,114 +35,179 @@
 
             <!-- Right -->
             <div class="header-right">
-
               <!-- Desktop nav -->
               <nav class="nav-links desktop-nav">
-                <a href="index.html">Photography</a>
+                <a href="photo.html">Photography</a>
                 <a href="design.html" class="active">Design</a>
                 <a href="about.html">About</a>
                 <a href="contact.html" class="contact-nav">Contact</a>
               </nav>
 
               <!-- Mobile nav -->
-              <div class="icon-nav">
-                <a href="index.html" class="icon-link icon-gallery" aria-label="Photography">
-                  <img src="SVG/icon-gallery.svg" alt="">
-                </a>
-
-                <a href="design.html" class="icon-link icon-design active" aria-label="Design">
-                  <img src="SVG/design.svg" alt="">
-                </a>
-
-                <a href="about.html" class="icon-link icon-about" aria-label="About">
-                  <img src="SVG/about-2.svg" alt="">
-                </a>
-
-                <a href="contact.html" class="icon-link icon-contact" aria-label="Contact">
-                  <img src="SVG/contact-2.svg" alt="">
-                </a>
+              <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
               </div>
 
+              <div class="overlay" id="nav-overlay">
+                <nav class="overlay-menu">
+                      <a href="index.html">Home</a>
+                      <a href="photo.html">Photo</a>
+                      <a href="design.html" class="active">Design</a>
+                      <a href="about.html">About</a>
+                      <a href="contact.html">Contact</a>
+                </nav>
+              </div>
+
+
+            </div>
+
+
+          </div>
+
+          <div class="filter-bar">
+            <div class="filter-inner">
+                <div class="filter-tabs">
+                  <button class="filter-btn active" data-filter="branding"></button>
+                  <button class="filter-btn" data-filter="graphic"></button>   
+                  <!-- <button class="filter-btn" data-filter="all">All</button> -->               
+                </div>
             </div>
           </div>
+
+
         </div>
       </header>
-
-      <!-- ================= SECONDARY FILTER BAR =================
-      <div class="filter-bar">
-        <div class="filter-inner">
-          <div class="filter-tabs">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="branding">Branding</button>
-            <button class="filter-btn" data-filter="posters">Posters</button>
-            <button class="filter-btn" data-filter="conceptual">Conceptual</button>
-          </div>
-        </div>
-      </div>-->
-
     </div>
 
     <!-- ================= CONTENT ================= -->
     <main class="page-content">
       <div class="container">
-        <div class="poster-grid">
+          <div class="poster-grid grid-mode">
 
-          <div class="poster-item posters">
-            <img src="Images/eminem ig2.png"
-            data-caption="Collage-style poster developed from a Rolling Stone cover - December 2025">
-          </div>
+            <a href="motion.html" class="poster-item branding project-card">
+                <div class="poster-inner">
+                    <img src="video/n95.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Expressive Type</h3>
+                    <p class="project-category">Motion graphic</p>
+                </div>
+            </a>
 
-          <div class="poster-item branding">
-            <img src="Images/cench.jpg" alt="">
-          </div>
 
-          <div class="poster-item conceptual">
-            <img src="Images/s&b refined 2.png" alt="">
-          </div>
+            <a href="typespec.html" class="poster-item branding project-card">
+                <div class="poster-inner">
+                    <img src="Images/expressive2.jpg" alt="rw">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Roslindale Typeface</h3>
+                    <p class="project-category">Type specimen book</p>
+                </div>
+            </a>
 
-          <div class="poster-item conceptual">
-            <img src="Images/tank.png" alt="">
-          </div>
+            <a href="magazine.html" class="poster-item branding project-card">
+                <div class="poster-inner">
+                    <img src="mag.jpg" alt="mag">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">The Advert</h3>
+                    <p class="project-category">Magazine</p>
+                </div>
+            </a>
 
-          <div class="poster-item branding">
-            <img src="Images/camera.jpg" alt="">
-          </div>
+            <a href="now.html" class="poster-item branding project-card">
+                <div class="poster-inner">
+                    <img src="Images/CultureNowPostmodern.jpg" alt="rw">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Design Culture NOW</h3>
+                    <p class="project-category">Gallery poster series</p>
+                </div>
+            </a>
 
-          <div class="poster-item conceptual">
-            <img src="Images/solarfly.png" alt="">
-          </div>
+            <!--
 
-          <div class="poster-item branding">
-            <img src="Images/Hiline/hilinelogo.jpg" alt="">
-          </div>
+            <a href="hiline.html" class="poster-item branding project-card">
+                <div class="poster-inner">
+                    <img src="Images/Hiline/hilinelogo.jpg" alt="Hiline Branding">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Hiline Table</h3>
+                    <p class="project-category">Restaurant branding & identity</p>
+                </div>
+            </a>
 
-          <div class="poster-item branding">
-            <img src="Images/quote.jpg" alt="">
-          </div>
+            <a href="wine.html" class="poster-item branding project-card">
+                <div class="poster-inner">
+                    <img src="wine/wine-glass.jpg" alt="Wine">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Interaction</h3>
+                    <p class="project-category">Wine series branding</p>
+                </div>
+            </a>
 
-          <div class="poster-item branding">
-            <img src="Images/Wine Label/cabernet2.png"
-            data-caption="Wine label inspired by the Surrealism movement. December 2025.">
-          </div>
+            <a href="rw.html" class="poster-item branding project-card">
+                <div class="poster-inner">
+                    <img src="rw/rw-logo.jpg" alt="rw">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Rolling Waves</h3>
+                    <p class="project-category">Ice Cream branding & identity</p>
+                </div>
+            </a>
 
-          <div class="poster-item branding">
-            <img src="Images/floater.jpg" alt="">
-          </div>
-          
-          <div class="poster-item branding">
-            <img src="Images/g3letterform.jpg"
-            data-caption="Custom letterform created by combining a letter and number. October 2025.">
-          </div>
+          -->
 
-          <div class="poster-item branding">
-            <img src="Images/krane.jpg" alt="">
-          </div>
+            <div class="poster-item graphic">
+              <img src="Images/eminem ig2.png"
+              data-caption="Collage-style poster developed from a Rolling Stone cover - December 2025">
+            </div>
 
-          <div class="poster-item branding">
-            <img src="Images/broadside.jpg" alt="">
+            <div class="poster-item graphic">
+              <img src="Images/cench.jpg" alt="">
+            </div>
+
+            <div class="poster-item graphic">
+              <img src="Images/s&b refined 2.png" alt="">
+            </div>
+
+            <div class="poster-item graphic">
+              <img src="Images/tank.png" alt="">
+            </div>
+
+            <div class="poster-item graphic">
+              <img src="Images/camera.jpg" alt="">
+            </div>
+
+            <div class="poster-item graphic">
+              <img src="Images/solarfly.png" alt="">
+            </div>
+            
+            <div class="poster-item graphic">
+              <img src="Images/quote.jpg" alt="">
+            </div>
+
+            <div class="poster-item graphic">
+              <img src="Images/floater.jpg" alt="">
+            </div>
+            
+            <div class="poster-item graphic">
+              <img src="Images/g3letterform.jpg"
+              data-caption="Custom letterform created by combining a letter and number. October 2025.">
+            </div>
+
+            <div class="poster-item graphic">
+              <img src="Images/krane.jpg" alt="">
+            </div>
+
+            <div class="poster-item graphic">
+              <img src="Images/broadside.jpg" alt="">
+            </div>
           </div>
         </div>
-      </div>
     </main>
 
     <!-- Lightbox w/ image captions -->
@@ -163,234 +228,6 @@
   </div>
 
 
-    <script>
-
-
-    /* ---------------- HEADER HEIGHT ---------------- */
-
-        const navWrapper = document.querySelector('.nav-wrapper');
-
-        function setNavHeight() {
-            document.documentElement.style.setProperty(
-                '--header-height',
-                `${navWrapper.getBoundingClientRect().height}px`
-            );
-        }
-
-        // Run at the right times
-        window.addEventListener('load', setNavHeight);
-        window.addEventListener('resize', setNavHeight);
-
-        // Safari / font-load safety
-        setTimeout(setNavHeight, 50);
-        setTimeout(setNavHeight, 250);
-
-
-
-    //* ---------- NAV VISIBILITY (FAST REVEAL + DECAY + ) ---------- */
-
-
-
-
-    const NAV_REVEAL_ZONE = 50; // px from top (tweak this)
-
-    document.addEventListener('mousemove', e => {
-    // Only on desktop-like devices
-    if (window.innerWidth < 768) return;
-
-        if (e.clientY < NAV_REVEAL_ZONE) {
-            showNav();
-
-            // Restart idle hide
-            clearTimeout(hideTimeout);
-            hideTimeout = setTimeout(() => {
-                if (window.scrollY > 0 && !isNavHovered) {
-                    hideNav();
-                }
-            }, 1000);
-        }
-    });
-
-
-
-    let isNavHovered = false;
-    navWrapper.addEventListener('mouseenter', () => {
-        isNavHovered = true;
-        navWrapper.classList.remove('nav-hidden'); // force show
-    });
-
-    navWrapper.addEventListener('mouseleave', () => {
-        isNavHovered = false;
-
-        // Restart idle hide after hover ends
-        clearTimeout(hideTimeout);
-        hideTimeout = setTimeout(() => {
-            if (window.scrollY > 0 && !isNavHovered) {
-            hideNav();
-            }
-        }, 100); // 👈 same idle time as scroll
-    });
-
-
-
-    let lastScrollY = window.scrollY;
-    let lastTime = Date.now();
-    let hideTimeout = null;
-    let inGracePeriod = false;
-
-    function showNav() {
-        navWrapper.classList.remove('nav-hidden');
-    }
-
-    function hideNav() {
-        if (!isNavHovered) {
-            navWrapper.classList.add('nav-hidden');
-            inGracePeriod = false;
-        }
-    }
-
-
-    window.addEventListener('scroll', () => {
-        const currentScrollY = window.scrollY;
-        const currentTime = Date.now();
-
-        // ALWAYS visible at top
-        if (currentScrollY <= 50) {
-            showNav();
-            clearTimeout(hideTimeout);
-            inGracePeriod = false;
-            lastScrollY = currentScrollY;
-            lastTime = currentTime;
-            return;
-        }
-
-        const deltaY = currentScrollY - lastScrollY;
-        const deltaTime = currentTime - lastTime;
-        const velocity = Math.abs(deltaY / deltaTime);
-
-        /* -------- SCROLL DOWN -------- */
-        if (deltaY > 0 && currentScrollY > 20 && !inGracePeriod && !isNavHovered) {
-            hideNav();
-        }
-
-        /* -------- FAST SCROLL UP (TRIGGER) -------- */
-        if (deltaY < 0 && velocity > 2.5 && !inGracePeriod) {
-            showNav();
-            inGracePeriod = true;
-
-            clearTimeout(hideTimeout);
-            hideTimeout = setTimeout(() => {
-                if (window.scrollY > 0 && !isNavHovered){     
-                    hideNav();
-                }
-            }, 2500); // 👈 grace period
-        }
-
-        // IMPORTANT:
-        // Slow scrolling during grace does NOT reset the timer
-
-        lastScrollY = currentScrollY;
-        lastTime = currentTime;
-    });
-
-
-        /* ---------------- GALLERY CONTROL ---------------- */
-
-
-        const isGalleryPage = document.body.classList.contains('page-gallery');
-
-        document.querySelectorAll('.sort-wrapper').forEach(wrapper => {
-        const button = wrapper.querySelector('button');
-
-        button.addEventListener('click', (e) => {
-            e.stopPropagation();
-
-            const isOpen = wrapper.classList.contains('active');
-
-            // Close all dropdowns first
-            document
-            .querySelectorAll('.sort-wrapper')
-            .forEach(w => w.classList.remove('active'));
-
-            // Toggle THIS one
-            if (!isOpen) {
-            wrapper.classList.add('active');
-            }
-        });
-        });
-
-        
-        /* ---------- LIGHTBOX ---------- */
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = lightbox.querySelector('img');
-        const lightboxCaption = lightbox.querySelector('.lightbox-caption');
-
-        // OPEN
-        document.querySelectorAll('.poster-item img').forEach(img => {
-            img.addEventListener('click', () => {
-                lightboxImg.src = img.src;
-                lightboxCaption.textContent = img.dataset.caption || '';
-
-                requestAnimationFrame(() => {
-                lightbox.classList.add('active');
-                });
-            });
-        });
-
-        // CLOSE (shared logic)
-        function closeLightbox() {
-        lightbox.classList.remove('active');
-
-        setTimeout(() => {
-            lightboxImg.src = '';
-            lightboxCaption.textContent = '';
-        }, 300);
-        }
-
-
-        // Click to close
-        lightbox.addEventListener('click', closeLightbox);
-
-        // ESC key to close
-        document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') {
-            closeLightbox();
-        }
-        });
-
-
-    document.querySelectorAll('.poster-item img').forEach(img => {
-        img.addEventListener('click', () => openLightbox(img));
-    });
-
-
-    function openLightbox(img) {
-        lightboxImg.src = img.src;
-        lightboxCaption.textContent = img.dataset.caption || '';
-
-        document.body.classList.add('lightbox-open');
-
-        requestAnimationFrame(() => {
-            lightbox.classList.add('active');
-        });
-    }
-
-    function closeLightbox() {
-        lightbox.classList.remove('active');
-        document.body.classList.remove('lightbox-open');
-
-        setTimeout(() => {
-            lightboxImg.src = '';
-            lightboxCaption.textContent = '';
-        }, 300);
-    }
-
-
-
-
-
-    // gallery hover states
-
-    </script>
+  <script src="script.js"></script>
 </body>
 </html>
