@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POSTER SERIES | YS</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <link rel="icon" type="image/svg+xml" href="/favicon2/Artboard 1.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon2/favi32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon2/favi16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon2/favi180.png">
+</head>
+
+<body class="page-gallery">
+    <div class="page-shell">
+        <div class="nav-wrapper">
+            <header>
+                <div class="header-container">
+                    <div class="header-inner">
+
+                        <!-- Left -->
+                        <div class="header-left">
+                            <a href="index.html" class="icon-link" aria-label="Home">
+                                <img src="SVG/logo-mobile2.svg" class="logo-mobile">
+                                <img src="SVG/logo-desktop4.svg" class="logo-desktop">
+                            </a>
+                        </div>
+
+
+                        <!-- Right -->
+                        <div class="header-right">
+
+                            <!-- Desktop nav -->
+                            <nav class="nav-links desktop-nav">
+                                <a href="photo.html">Photography</a>
+                                <a href="design.html" class="active">Design</a>
+                                <a href="about.html">About</a>
+                                <a href="contact.html" class="contact-nav">Contact</a>
+                            </nav>
+
+                            <!-- Mobile nav -->
+                            <div class="menu-toggle" id="mobile-menu">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+
+                            <div class="overlay" id="nav-overlay">
+                                <nav class="overlay-menu">
+                                <a href="index.html">Home</a>
+                                    <a href="photo.html">Photo</a>
+                                    <a href="design.html">Design</a>
+                                    <a href="about.html">About</a>
+                                    <a href="contact.html">Contact</a>
+                                </nav>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="filter-bar">
+                        <div class="filter-inner">
+                            <a href="design.html" class="filter-btn active" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">←</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </header>
+        </div> 
+
+
+        <main class="page-content case-study">
+            <div class="container">
+                
+
+
+                 <!-- Project Header -->
+                <section class="project-intro">
+                    <!-- Keep the divider if you want that top line, or remove it -->
+
+                    <div class="intro-grid">
+                        <!-- Left Side: Title & Meta -->
+                        <div class="intro-left">
+                            <h1 class="hero-title">Expressive Type</h1>
+                            <div class="intro-meta">
+                                <span>Typography II • UMass Lowell</span>
+                            </div>
+                        </div>
+
+                        <!-- Right Side: Description -->
+                        <div class="intro-text">
+                            <p>I created an expressive type – a minute long video featuring lyrics to a portion of Kendrick Lamar's "N95" song.
+                            The goal was to create a high impact visualization of his fast lyricism and punchy wordplay.</p>                  
+                        </div>
+                    </div>
+                </section>
+
+
+
+
+            
+
+                <!-- Section 01: Modernism (Image Left, Text Right) -->
+
+
+
+                <hr class="section-divider">
+
+                <section class="landscape-hero">
+                    <div class="landscape-wrapper video-container" id="videoWrapper">
+                        <!-- The Video -->
+                        <video id="featureVideo" preload="metadata" poster="magazine/video-placeholder.jpg">
+                            <source src="video/n95.mp4#t=0.001" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+
+                        <!-- Custom Play Overlay -->
+                        <div class="video-overlay" id="videoOverlay">
+                            <button class="play-button" aria-label="Play Video">
+                                <span class="play-icon">▶</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+        </main>
+
+
+        <!-- Lightbox w/ image captions -->
+        <div class="lightbox" id="lightbox">
+            <div class="lightbox-content">
+                <img src="" alt="">
+                <div class="lightbox-caption"></div>
+            </div>
+        </div>
+
+
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <span class="footer-left">© 2026</span>
+                <span class="footer-right">CREATED BY OLEG YERSHOV</span>
+            </div>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

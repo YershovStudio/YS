@@ -6,15 +6,19 @@
 /* Root colors to re-use */
 :root {
     --primary-color: #cb132c;
-    --background-color: #0f0f0f;
+    --background-color: rgb(3, 3, 3);
     --text-color: #ffffff;
     --font-family: 'Host Grotesk', sans-serif;
-    /* --page-padding: 40px; /* page is defaulted to 40px padding */
-    /* --gallery-gap: 40px; */
-    --page-padding: clamp(10px, 2vw, 50px);
+    --page-padding: clamp(20px, 5vw, 35px);
     --gallery-gap: clamp(20px, 3vw, 100px);
 
 }
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+    position: relative;
+}
+
 
 /* UI text: no selection */
 header,
@@ -30,7 +34,7 @@ nav,
 .poster-item,
 .poster-item img {
   user-select: none;
-  cursor: zoom-in;
+  cursor: default;
 }
 
 
@@ -38,18 +42,6 @@ nav,
 html, body {
   -webkit-user-select: none;
   user-select: none;
-}
-
-
-
-/* navbar */
-.header-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  /* padding: 20px 0; /* nav vertical padding */
-  padding: clamp(20px, 2vw, 50px) 0;
-  
 }
 
 /* Chrome, Safari, Edge */
@@ -75,10 +67,15 @@ body {
     scrollbar-width: none;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
+    word-spacing: -0.1em;
 }
 
 
+
 /* ------------------- GALLERY ------------------- */
+
+
+
 
 
 /* ---------- LIGHTBOX ---------- */
@@ -86,7 +83,7 @@ body {
 .lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.90);
   backdrop-filter: blur(6px);
 
   display: flex;
@@ -114,13 +111,6 @@ body.lightbox-open {
   pointer-events: auto;
 }
 
-.lightbox-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-}
-
 /* Caption */
 .lightbox-caption {
   max-width: 90vw;
@@ -143,15 +133,59 @@ body.lightbox-open {
   transform: translateY(0);
 }
 
+/* Removes shadows from single images */
 .lightbox img {
   max-width: 80vw;
   max-height: 80vh;
   object-fit: contain;
   transform: scale(0.96);
   transition: transform 0.3s ease;
-
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  
+  /* Removed box-shadow */
+  box-shadow: none; 
 }
+
+/* Logic for the scrolling project column */
+.lightbox-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  width: 100%;
+  
+  /* Link this directly to your root variable */
+  gap: var(--gallery-gap); 
+}
+
+.lightbox-column img {
+  /* Matching the clinical, shadowless look */
+  width: 50vw; 
+  max-width: 500px;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  box-shadow: none; 
+}
+
+.lightbox-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-height: 100vh; /* Allow it to use the full height for scrolling */
+  overflow-y: auto;
+  
+  /* Sync the vertical padding with your responsive page padding */
+  padding-top: var(--page-padding);
+  padding-bottom: var(--page-padding);
+  
+  scrollbar-width: none; 
+}
+
+.lightbox-content::-webkit-scrollbar {
+  display: none;
+}
+
+
 
 .lightbox.active img {
   transform: scale(1);
@@ -162,6 +196,56 @@ body.lightbox-open {
     max-width: 92vw;
     max-height: 70vh;
   }
+  .lightbox-column img {
+    width: 90%; /* More impact on small screens */
+  }
+}
+
+
+/* Remove default link styling */
+.project-card {
+    text-decoration: none;
+    color: inherit;
+    display: block; /* Makes the whole area clickable */
+    transition: opacity 0.3s ease;
+}
+
+.project-card .poster-inner {
+    overflow: hidden !important; /* Forces the clip even if masonry globals say visible */
+    position: relative;
+    width: 100%;
+    z-index: 2;
+}
+
+/* Typography for the captions */
+.project-info {
+    padding: 15px 0;
+    text-align: center;
+}
+
+.project-title {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    margin: 0;
+    text-transform: uppercase; /* Optional: matches a clinical look */
+}
+
+.project-category {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 5px;
+    text-transform: uppercase;
+}
+
+/* Hover State: Keep it subtle */
+.project-card:hover .poster-inner img {
+    transform: scale(1.03); /* Slight zoom */
+}
+
+.project-card:hover .project-title {
+    color: var(--primary-color); /* Use your red as a subtle accent */
 }
 
 
@@ -169,49 +253,210 @@ body.lightbox-open {
 
 
 
-.poster-grid {
-  margin-top: clamp(0px, 2vw, 20px);
-  columns: 300px;  /* 👈 image size control */
+
+/* -------------------- GALLERY LAYOUT -------------------- */
+
+
+
+/* 1. NAVBAR CONTAINER: The primary anchor for your vertical axis */
+.header-container {
+    max-width: none;
+    width: 100%;
+    margin: 0;
+    padding: 0 var(--page-padding); /* This is your master wall */
+}
+
+/* 2. NAVBAR INNER: Only handle vertical spacing here */
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(15px, 5vw, 25px) 0; /* Horizontal MUST be 0 */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 3. FILTER BAR: Align PROJECTS/ALL to the same anchor */
+.filter-inner {
+    max-width: none;
+    margin: 0;
+    /* Top 14px, Variable Sides, Bottom 20px */
+    padding: 14px 0 20px 0; 
+    display: flex;
+    align-items: center;
+}
+
+/* 4. MAIN CONTENT & GRID: Clear the extra padding layers */
+.page-content {
+  flex: 1;
+  padding-top: var(--header-height);
+  padding-left: 0; /* Remove horizontal padding here */
+  padding-right: 0;
+  padding-bottom: clamp(12px, 3vh, 32px);
+}
+
+
+
+
+
+
+
+
+
+
+
+/* -------------------- GALLERY -------------------- */
+
+
+/* 1. SHARED BASE RULES (Desktop: 3 Columns) */
+.poster-grid, 
+.page-gallery .poster-grid:not(.grid-mode) {
+  display: block;
+  column-count: 3;
+  column-fill: auto; /* CRITICAL: Prevents images from jumping between columns */
   column-gap: var(--gallery-gap);
+  /* Ensure a height isn't set here; let it be natural */
+  height: auto; 
 }
 
+
+/* ------MASONRY LAYOUT ------- */
+
+
+.poster-grid.grid-mode {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Match masonry 3-col */
+  gap: var(--gallery-gap);
+  columns: auto; /* Reset column property */
+}
+
+.poster-grid.grid-mode .poster-item {
+  display: block;
+  margin-bottom: 0; 
+}
+
+/* 2. ITEM BEHAVIOR */
 .poster-item {
-  display:inline-block;
-  margin-bottom: var(--gallery-gap); /* vertical gap */
+  display: inline-block;
+  width: 100%;
+  margin-bottom: var(--gallery-gap);
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  /* Add these to stabilize the container */
+  overflow: visible; 
+  vertical-align: top; 
 }
 
+/* --- UNIVERSAL IMAGE STYLING --- */
 .poster-item img {
   transition: transform 0.6s cubic-bezier(0.5, 1, 0.5, 1);
   transform-origin: center;
   will-change: transform;
   width: 100%;
-  height:auto;
-  object-fit: contain;
-  border-radius: 0px; /* optional */
-}
-
-/* ----------- image hover states ------------ */
-
-.poster-inner {
   display: block;
-  overflow: visible; /* clips scale cleanly */
+  border-radius: 0px;
+  /* Default for Masonry (All/Graphic) */
+  height: auto; 
+  object-fit: contain; 
+  max-width: 100%; 
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0); /* Forces GPU rendering */
 }
 
-/* Disable hover on touch */
-@media (hover: none){
-  .poster-item:hover .poster-inner img {
-    transform: none;
-    filter: none;
-  }
+
+
+.poster-grid, 
+.poster-grid.grid-mode {
+  padding: 0 var(--page-padding); /* Grid now shares the same wall as the logo */
 }
-.poster-item:hover {
+
+/* 5. FOOTER: Complete the vertical line */
+.footer-inner {
+  width: 100%;
+  padding: 0 var(--page-padding);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+/* --- GRID MODE OVERRIDE (Photography & Branding) --- */
+/* This MUST stay below the universal styling to work correctly */
+.poster-grid.grid-mode .poster-item img {
+  aspect-ratio: 3 / 4;
+  height: 100%;    /* Forces the fill */
+  object-fit: cover; /* Crops to fill the 4:5 frame */
+}
+
+
+/* ----------- UNIFIED IMAGE & CAROUSEL LOGIC ------------ */
+
+/* 1. THE BASE STATE: This handles the smooth entry AND exit */
+.poster-item img, 
+.cycle-track img {
+  /* Crucial: We must list both properties for them to animate */
+  transition: transform 0.6s cubic-bezier(0.2, 0, 0.2, 1), opacity 0.8s ease-in-out !important;
+  will-change: transform, opacity;
+  display: block;
+  width: 100%;
+  height: auto;
+  transform-origin: center center;
+}
+
+/* 2. THE HOVER ZOOM: Only the scale destination */
+.poster-item:hover img,
+.project-card:hover .cycle-track img {
+  transform: scale(1.03) !important;
   z-index: 10;
 }
 
-.poster-item img:hover {
-  transform: scale(1.05);
-  
+/* 3. CAROUSEL STACKING: Force images to sit on top of each other */
+.cycle-track {
+    position: relative;
+    width: 100%;
+    display: block; /* Overwrites any display: flex */
+    overflow: visible;
 }
+
+.cycle-track img:not(:first-child) {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* 4. LAYOUT CLIPPING: Controlled by Grid vs Masonry */
+/* Grid Mode (Photography/Branding): Clean crop */
+.poster-grid.grid-mode .poster-inner {
+    overflow: hidden !important;
+    aspect-ratio: 3 / 4;
+}
+
+/* Masonry Mode (All/Graphic): Pop-out zoom */
+.poster-grid:not(.grid-mode) .poster-inner {
+    overflow: visible !important;
+}
+
+/* 5. MOBILE & TWEAKS */
+@media (max-width: 600px) {
+  .poster-grid, .poster-grid.grid-mode {
+    column-count: 2 !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 15px;
+  }
+}
+
+.poster-item:hover {
+  z-index: 20;
+}
+
+.poster-grid {
+    /* Adjust this value to get the exact gap you want */
+    padding-top: 20px; 
+}
+
+
+
+
 
 
 /* Mobile icon active (current page) */
@@ -407,27 +652,12 @@ body.lightbox-open {
 
 /* ---------- GALLERY ---------- */
 
-.page-content{
-  flex:1;
-  padding-top: var(--header-height);
-  padding-left: var(--page-padding);
-  padding-right: var(--page-padding);
-  padding-bottom: clamp(12px, 3vh, 32px);
-}
-
-
-
 .page-content--centered {
   display: flex;
   align-items: center;
   justify-content: center;
 
 }
-
-
-
-
-
 
 
 .header-left {
@@ -442,41 +672,92 @@ body.lightbox-open {
 
 
 
+
 /* ------------- NAVBAR ------------- */
 
-/* Desktop nav active state 
-.nav-links a.active {
-  text-decoration: underline;
-  text-underline-offset: 6px;
-}
- */
 
- .nav-links a {
-  position: relative;
-  text-decoration: none;
-}
-
-.nav-links a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -6px;          /* distance under text */
-  width: 100%;
-  height: 1px;
-  background: #fff;
-
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s ease;
+/* --- Hamburger Icon --- */
+.menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    cursor: pointer;
+    z-index: 1001; /* Above the overlay */
+    position: relative;
 }
 
-.nav-links a:hover::after {
-  transform: scaleX(1);
+.menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 1px; /* Thin, clinical lines */
+    background-color: #fff;
+    transition: all 0.3s ease-in-out;
 }
 
-.nav-links a.active::after {
-  transform: scaleX(1);
+/* --- X Animation --- */
+.menu-toggle.active span:nth-child(1) {
+    transform: translateY(8.5px) rotate(45deg);
 }
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0; /* Hide middle bar */
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: translateY(-8.5px) rotate(-45deg);
+}
+
+/* --- Overlay Menu --- */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease-in-out;
+    z-index: 1000;
+}
+
+.overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.overlay-menu {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 20px; /* Space between links */
+}
+
+.overlay-menu a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px; /* Larger for mobile tap targets */
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
+}
+
+.overlay-menu a:hover {
+    opacity: 1;
+}
+
+
+
+
+
+
+
 
 
 
@@ -485,7 +766,7 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  background: #0f0f0f;
+  background: #030303;
   z-index: 10001; /* navbar layered above dropdown menu */
 }
 
@@ -495,6 +776,8 @@ header {
   top: 0;
   left: 0;
   width: 100%;
+  box-sizing: border-box; /* Ensures padding stays INSIDE the width */
+
   background: #000;
   z-index: 10001;
   transition: transform 0.5s ease;
@@ -502,20 +785,6 @@ header {
 
 .nav-wrapper.nav-hidden {
   transform: translateY(-100%);
-}
-
-
-
-
-/* mobile */
-@media (max-width: 768px) {
-  .filter-inner {
-    padding: 10px var(--page-padding);
-  }
-
-  .filter-tabs {
-    gap: 18px;
-  }
 }
 
 /* display hamburger & mobile logo at 1024 or less */
@@ -558,12 +827,6 @@ header {
   max-width: none;
   padding: 0;
 }
-.header-container {
-    max-width: none;
-    margin: 0 auto;
-    padding-left: var(--page-padding); /* var uses value from --page-padding */
-    padding-right: var(--page-padding);
-}
 
 
 /* Logo and text beside it */
@@ -573,38 +836,54 @@ header {
     gap: 50px;
 }
 
-/* nav links and buttons */
-nav {
-    display: flex;
-    align-items: center;
-    /* justify-content: space-between; */
-    gap: 16px; 
-}
+/* ----- nav links and buttons ----- */
 
-nav a {
-    color: white;
-    text-decoration: none;
-    margin: 0;
-}
-
-
-nav a:hover {
-    opacity: 0.7;
-}
-
-
-
+/* 1. The Container */
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 30px; /* distance between nav links */
-    font-size: 12px;
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    flex-wrap: wrap;
+    gap: 30px; 
 }
 
+/* 2. The Base Link Style */
+.nav-links a {
+    position: relative;
+    color: rgba(255, 255, 255, 0.3) !important; 
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    transition: color 0.3s ease;
+}
+
+/* 3. Hover & Active Text Color */
+.nav-links a:hover {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.nav-links a.active {
+    color: #ffffff !important;
+}
+
+/* 4. The Underline */
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #fff;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); /* Snappier feel */
+    bottom: -5px; 
+}
+
+/* 5. Trigger the Underline */
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    transform: scaleX(1);
+}
 
 
 .contact-nav {
@@ -645,65 +924,34 @@ nav a:hover {
   content: url("SVG/contact-active2.svg");
 }
 
-/*
-
-.icon-wrap{
-  display: flex;        
-  position: relative;
-  line-height: 0;      
+/* By default (Mobile), the hamburger is visible */
+.menu-toggle {
+    display: flex; /* or block */
 }
 
-
-.page-gallery .icon-gallery .icon-wrap {
-  position: relative;
-  display: inline-block;
+/* When the screen is 1025px or wider, hide it */
+@media (min-width: 1025px) {
+    .menu-toggle {
+        display: none !important;
+    }
+    
+    /* Also ensure the overlay closes if someone 
+       resizes their browser window from mobile to desktop */
+    .overlay {
+        display: none;
+    }
 }
 
-
-.page-gallery .icon-gallery .icon-wrap::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -5px;
-  transform: translateX(-50%);
-  width: 16px;
-  height: 1px;
-  background: #ffffff;
-}
-
-
-
-
-.page-gallery .icon-gallery::after .nav-icon::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -6px;               
-  transform: translateX(-50%);
-  width: 18px;                
-  height: 1.5px;              
-  background: #cb132c;        
-}
-
-*/
 
 /* ---------------- FILTER BAR ---------------- */
 
+
+
 /* Secondary filter bar */
 .filter-bar {
-  position: sticky;
-  top: var(--header-height);
-  background: #000;
   z-index: 9998;
-  /* border-bottom: 1px solid rgba(255,255,255,0.08); */
 }
-.filter-inner {
-  max-width: 1800px;
-  margin: 0 auto;
-  padding: 14px var(--page-padding);
-  display: flex;
-  align-items: center;
-}
+
 
 .filter-tabs {
   display: flex;
@@ -993,3 +1241,414 @@ button:focus-visible {
   flex-direction: column;
 }
 
+
+
+
+
+
+/* --- Case Study Layout --- */
+
+/* --- Case Study Layout --- */
+
+.case-study {
+    padding-top: calc(var(--header-height));
+    max-width: 1100px;
+    margin: 0 auto;
+    /* Add this: ensures padding on desktop if window is smaller than 1100px */
+    padding-left: var(--page-padding);
+    padding-right: var(--page-padding);
+}
+
+/* --- Mobile Responsiveness Updates --- */
+@media (max-width: 768px) {
+    .case-study {
+        /* Syncs the top padding with your gallery style on mobile */
+        padding-top: calc(var(--header-height));
+    }
+
+    .intro-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 20px; /* Tighter gap for mobile */
+    }
+    
+    .study-row,
+    .study-row.reverse {
+        flex-direction: column;
+        gap: 20px; /* Reduced from 80px for better clinical flow */
+    }
+
+    /* Ensure titles don't overflow on small screens */
+    .hero-title {
+        font-size: clamp(32px, 8vw, 48px);
+    }
+}
+
+/* Project Intro: Remained Unchanged */
+.project-intro {
+    margin-bottom: 0px;
+}
+
+.intro-header {
+    display: flex;
+    align-items: center; /* Vertically centers the line with the text */
+    gap: 15px;           /* Space between "The Objective" and the start of the line */
+    font-size: 20px;
+    opacity: 0.8;
+    margin-bottom: -2px;
+    white-space: nowrap; /* Prevents "The Objective" from wrapping */
+}
+
+.intro-header::after {
+    content: "";
+    flex-grow: 1;        /* Tells the line to take up all remaining space in the grid column */
+    height: 0.5px;
+    background-color: rgb(255, 255, 255); /* Matches your section-divider color */
+}
+
+
+
+
+.intro-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0em;
+    opacity: 0.6;
+}
+
+
+
+.intro-text p:first-child {
+    margin-top: 0;
+   
+}
+
+.intro-text p:last-child {
+    margin-bottom: -7px;
+}
+/* --- Horizontal Divider --- */
+
+.section-divider {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    /* This ensures the line is exactly in the middle of the 120px/150px gap */
+    margin: 40px 0; 
+}
+
+/* Update your existing margins to keep spacing consistent */
+.project-intro {
+    margin-bottom: 0; /* Margin is now handled by the divider */
+}
+
+.study-row {
+    margin-top: 0; /* Margin is now handled by the divider */
+    /* margin-bottom: 150px; */
+}
+
+/* --- Side-by-Side Images Section --- */
+
+.study-row, 
+.study-row.reverse {
+    display: flex;
+    flex-direction: row;    /* Put them back side-by-side */
+    align-items: flex-start; /* Align captions to the top of the images */
+    gap: 40px;              /* Space between the two columns */
+    margin-bottom: 0px;
+}
+
+.study-visual {
+    flex: 1;                /* Both images take equal width */
+    background: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column; /* Stack the image and its caption vertically */
+    align-items: center;    /* Center the caption under the image */
+}
+
+.study-visual img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;        /* Let the flex container dictate the size */
+    margin-bottom: 0px;    /* Space between image and its caption */
+}
+
+.study-caption {
+    width: 100%;
+    text-align: center;     /* Center the text under each image */
+    margin-bottom: 0px;
+}
+
+.study-caption h3 {
+    font-size: 18px;        /* Slightly smaller to fit side-by-side better */
+    text-transform: uppercase;
+    margin-bottom: 0px;
+    letter-spacing: 0.05em;
+    line-height: 1.0;
+}
+
+.study-caption p {
+    font-size: 13px;
+    line-height: 1.0;
+    opacity: 0.5;
+    margin-bottom: -2px;
+    margin-top: 0.6em;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    .intro-grid {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .study-row,
+    .study-row.reverse {
+        flex-direction: column; /* Stack on mobile for readability */
+        gap: 80px;
+    }
+}
+
+/* 1. Ensure the grid container forces items to the top */
+.intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr; 
+    gap: 60px;
+    /* This is the key: it aligns both columns to the very top */
+    align-items: start; 
+    padding-top: 20px;
+}
+
+/* 2. Reset the Title margin */
+.hero-title {
+    font-size: clamp(24px, 3vw, 32px);
+    line-height: 1.1;
+    /* Remove top margin to ensure it sits at the grid's ceiling */
+    margin-top: 0; 
+    margin-bottom: 10px;
+    letter-spacing: -0.02em;
+    text-transform: none;
+}
+
+/* 3. Reset the Paragraph margin */
+.intro-text p {
+    padding-top: 4px;
+    font-size: 13px;
+    line-height: 1.5;
+    opacity: 0.9;
+    letter-spacing: 0.02em;
+    /* CRITICAL: Browsers add a default margin-top to <p> tags. 
+       Removing it ensures it aligns with the top of the title. */
+    margin-top: 0; 
+    margin-bottom: 0;
+    /* Enable Hyphenation */
+    hyphens: auto;
+    -webkit-hyphens: auto; /* For Safari/Chrome */
+    -ms-hyphens: auto;     /* For older IE/Edge */
+}
+
+/* Meta styling under the title */
+.intro-meta {
+    display: flex;
+    gap: 20px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.5;
+}
+
+
+
+/* Mobile Responsive: Stack them back up */
+@media (max-width: 768px) {
+    .intro-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .hero-title {
+        font-size: 32px;
+    }
+}
+
+
+/* --- Vertical Centering Section --- */
+
+.landscape-hero {
+    width: 100%;
+    /* This defines the 'window' height the image will center within */ 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers the image vertically */
+    align-items: center;     /* Centers the image horizontally */
+    margin-top: 0;
+}
+
+.landscape-wrapper {
+    width: 100%;
+    max-width: 1100px; /* Aligns with your established grid */
+    margin-top: 0;
+    border:0.5px #575757 solid;
+}
+
+.landscape-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-top: 0;
+}
+
+
+/* --- Mobile Overlay Active State --- */
+
+.overlay-menu a.active {
+    opacity: 1 !important;
+    color: #ffffff !important;
+}
+
+/* Inherit your existing landscape styles */
+.flip-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flipbook {
+    position: relative;
+    width: 100%;
+    /* 1. Define a fixed height based on your design (e.g., 600px) */
+    height: 700px; 
+    
+    /* 2. Start with half width for the cover */
+    max-width: 550px; 
+    margin: 0 auto;
+    border: 0.5px #575757 solid;
+    background: #030303;
+    transition: max-width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+.flipbook.is-spread {
+    /* 3. Expand only the width */
+    max-width: 1100px;
+}
+
+
+
+.flip-page {
+    grid-area: 1 / 1 / 2 / 2;
+    width: 100%;
+    height: 100%;
+    /* 4. Use 'cover' or 'contain' to ensure images don't distort */
+    object-fit: contain; 
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.flip-page.active {
+    opacity: 1;
+    /* We remove 'position: relative' so it doesn't push the height */
+}
+
+.flipbook-screen {
+    width: 100%;
+    height: 100%; /* Fill the fixed height */
+    display: grid;
+}
+
+/* --- Arrow Styling --- */
+.flip-nav {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.flip-arrow {
+    pointer-events: auto;
+    background: rgba(0, 0, 0, 0.5);
+    border: 0.5px solid #575757;
+    color: #fff;
+    padding: 12px 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.flip-arrow:hover {
+    background: #fff;
+    color: #000;
+}
+
+
+
+
+.video-container {
+    position: relative;
+    cursor: pointer;
+    background: #000;
+}
+
+.video-container video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.video-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    transition: background 0.3s ease;
+}
+
+.video-container:hover .video-overlay {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.play-button {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.play-button:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Hide overlay when video is playing */
+.video-container.is-playing .video-overlay {
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+#featureVideo {
+    width: 100%;
+    height: auto;
+    display: block;
+    background-color: #000; /* Prevents a white flash while loading the frame */
+    object-fit: cover;
+}
+
+/* Ensure the video doesn't look 'washed out' compared to images */
+video {
+    filter: brightness(1); 
+}
