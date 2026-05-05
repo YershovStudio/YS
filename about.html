@@ -17,60 +17,52 @@
 
 <body class="page-about">
     <div class="page-shell">
-
         <div class="nav-wrapper">
-            <header>
-                <div class="header-container">
-                    <div class="header-inner">
+        <header>
+            <div class="header-container">
+                <div class="header-inner">
 
-                        <!-- Left -->
-                        <div class="header-left">
-                            <a href="index.html" class="icon-link" aria-label="Home">
-                                <img src="SVG/logo-mobile2.svg" class="logo-mobile">
-                                <img src="SVG/logo-desktop4.svg" class="logo-desktop">
-                            </a>
-                        </div>
-
-
-                        <!-- Right -->
-                        <div class="header-right">
-
-                            <!-- Desktop nav -->
-                            <nav class="nav-links desktop-nav">
-                                <a href="index.html">Photography</a>
-                                <a href="design.html">Design</a>
-                                <a href="about.html"class="active">About</a>
-                                <a href="contact.html" class="contact-nav">Contact</a>
-                            </nav>
-
-                            <!-- Mobile nav -->
-                            <div class="icon-nav">
-
-                                <!-- GALLERY = SORT CONTROL -->
-                                <a href="index.html" class="icon-link icon-gallery" aria-label="Filter gallery">
-                                    <img src="SVG/icon-gallery.svg" alt="">
-                                </a>
-                                <a href="design.html" class="icon-link icon-design" aria-label="Design">
-                                    <img src="SVG/design.svg" alt="">
-                                </a>
-                                <!-- ABOUT -->
-                                <a href="about.html" class="icon-link icon-about" aria-label="About">
-                                    <img src="SVG/about-2.svg" alt="">
-                                </a>
-                                <!-- CONTACT -->
-                                <a href="contact.html" class="icon-link icon-contact" aria-label="Contact">
-                                    <img src="SVG/contact-2.svg" alt="">
-                                </a>
-                            </div>
-
-
-                        </div>
-
+                    <!-- Left -->
+                    <div class="header-left">
+                        <a href="index.html" class="icon-link" aria-label="Gallery">
+                            <img src="SVG/logo-mobile2.svg" class="logo-mobile">
+                            <img src="SVG/logo-desktop4.svg" class="logo-desktop">
+                        </a>
                     </div>
-                </div>
-            </header>
 
-        </div>
+                    <!-- Right -->
+                    <div class="header-right">
+
+                         <!-- Desktop nav -->
+                        <nav class="nav-links desktop-nav">
+                            <a href="photo.html">Photography</a>
+                            <a href="design.html">Design</a>
+                            <a href="about.html" class="active">About</a>
+                            <a href="contact.html">Contact</a>
+                        </nav>
+
+                        <!-- Mobile nav -->
+                        <div class="menu-toggle" id="mobile-menu">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <div class="overlay" id="nav-overlay">
+                            <nav class="overlay-menu">
+                            <a href="index.html">Home</a>
+                                <a href="photo.html">Photo</a>
+                                <a href="design.html">Design</a>
+                                <a href="about.html" class="active">About</a>
+                                <a href="contact.html">Contact</a>
+                            </nav>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+    </div>
 
         <main class="page-content page-content--centered">
             <section class="about">
@@ -85,14 +77,14 @@
                 <div class="about-text">
 
                     <p>
-                    I'm Oleg Yershov, a photographer & designer based in Lowell, MA. I run Yershov Studio as a space to showcase my image-based storytelling, creative collaboration, and commissioned work.
+                    I'm Oleg Yershov, a photographer & designer based in Lowell, MA. I run Yershov Studio as a space to showcase my image-based storytelling, which includes independent, collaborative, and commissioned work.
                     </p>
                     <p>
-                    My photography centers around experimental & editorial-style portraiture, emphasized by controlled lighting. I strive to create bold, high-impact work, using lighting, colors, and composition to create a striking visual narrative.
-                    I do indoor & outdoor photoshoots, focusing on creating images that feel personal and cinematic.
+                    My photography centers around experimental & editorial-style portraiture, emphasized by controlled lighting. I strive to create bold, high-impact work, using lighting, styling, and composition to create a striking visual narrative.
+                    I do indoor & outdoor photoshoots, focusing on creating images that feel personal and cinematic. I have experience with portraiture, real estate photography, and product photography.
                     </p>
                     <p>
-                        My design practice is rooted in building visual systems that often balance concept, image, and typography. I have experience creating commercial work such as logos and branding, while also experimenting with personalized designs and posters.
+                        My graphic design practice is rooted in building visual systems that often balance concept, image, and typography. I have professional experience logos, branding, and physical print, as well as personalized designs and posters.
                     </p>
                     <p>
                         Much of my work explores the relationship between photography and design, and I often combine ideas from both to push visual narrative within my work.
@@ -114,179 +106,7 @@
     </div>
 
 
-    <script>
-
-            /* ---------------- HEADER HEIGHT ---------------- */
-
-        const navWrapper = document.querySelector('.nav-wrapper');
-
-        function setNavHeight() {
-            document.documentElement.style.setProperty(
-                '--header-height',
-                `${navWrapper.getBoundingClientRect().height}px`
-            );
-        }
-
-        // Run at the right times
-        window.addEventListener('load', setNavHeight);
-        window.addEventListener('resize', setNavHeight);
-
-        // Safari / font-load safety
-        setTimeout(setNavHeight, 50);
-        setTimeout(setNavHeight, 250);
-
-
-        /* ---------- HIDE / SHOW NAV (VELOCITY + TOP OVERRIDE) ---------- */
-        let lastScrollY = window.scrollY;
-        let lastTime = Date.now();
-
-        window.addEventListener('scroll', () => {
-        const currentScrollY = window.scrollY;
-        const currentTime = Date.now();
-
-        // ALWAYS show nav at top of page
-        if (currentScrollY <= 45) {
-            navWrapper.classList.remove('nav-hidden');
-            lastScrollY = currentScrollY;
-            lastTime = currentTime;
-            return;
-        }
-
-        const deltaY = currentScrollY - lastScrollY;
-        const deltaTime = currentTime - lastTime;
-        const velocity = Math.abs(deltaY / deltaTime);
-
-        // Scroll down → hide
-        if (deltaY > 0 && currentScrollY > 100) {
-            navWrapper.classList.add('nav-hidden');
-        }
-
-        // Fast scroll up → show
-        if (deltaY < 0 && velocity > 0.8) {
-            navWrapper.classList.remove('nav-hidden');
-        }
-
-        lastScrollY = currentScrollY;
-        lastTime = currentTime;
-        });
-
-        /* ---------------- GALLERY CONTROL ---------------- */
-
-
-        const isGalleryPage = document.body.classList.contains('page-gallery');
-
-        document.querySelectorAll('.sort-wrapper').forEach(wrapper => {
-        const button = wrapper.querySelector('button');
-
-        button.addEventListener('click', (e) => {
-            e.stopPropagation();
-
-            const isOpen = wrapper.classList.contains('active');
-
-            // Close all dropdowns first
-            document
-            .querySelectorAll('.sort-wrapper')
-            .forEach(w => w.classList.remove('active'));
-
-            // Toggle THIS one
-            if (!isOpen) {
-            wrapper.classList.add('active');
-            }
-        });
-        });
-
-        
-
-
-        const galleryItems = document.querySelectorAll('.poster-item');
-
-        function filterGallery(type) {
-        galleryItems.forEach(item => {
-            const show =
-            type === 'all' || item.classList.contains(type);
-            item.style.display = show ? 'inline-block' : 'none';
-        });
-        }
-
-        function applyFilter(filter) {
-            document
-                .querySelectorAll('.filter-btn, .filter-option')
-                .forEach(b => b.classList.remove('active'));
-
-            document
-                .querySelectorAll(`[data-filter="${filter}"]`)
-                .forEach(b => b.classList.add('active'));
-
-            filterGallery(filter);
-            }
-
-            // Secondary nav buttons
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                applyFilter(btn.dataset.filter);
-            });
-            });
-
-            document.querySelectorAll('.filter-option').forEach(btn => {
-            btn.addEventListener('click', e => {
-                e.stopPropagation();
-
-                const filter = btn.dataset.filter;
-
-                // ✅ SPECIAL CASE: Design = navigate away
-                if (filter === 'design' && document.body.classList.contains('page-gallery')) {
-                window.location.href = 'design.html';
-                return;
-                }
-
-                // Otherwise → normal filtering
-                applyFilter(filter);
-
-                document
-                .querySelectorAll('.sort-wrapper')
-                .forEach(w => w.classList.remove('active'));
-            });
-            });
-
-
-
-
-        // default state
-        document
-            .querySelectorAll('.filter-option[data-filter="photo"]')
-            .forEach(btn => btn.classList.add('active'));
-
-        filterGallery('photo');
-
-
-
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = lightbox.querySelector('img');
-
-        document.querySelectorAll('.poster-item img').forEach(img => {
-            img.addEventListener('click', () => {
-                lightboxImg.src = img.src;
-                lightbox.classList.add('active');
-            });
-        });
-
-        // Close on click outside image
-        lightbox.addEventListener('click', () => {
-            lightbox.classList.remove('active');
-            lightboxImg.src = '';
-        });
-
-        // Close on ESC
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') {
-                lightbox.classList.remove('active');
-                lightboxImg.src = '';
-            }
-        });
-
-
-
-    </script>
+    <script src="script.js"></script>
     
 </body>
 

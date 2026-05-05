@@ -16,11 +16,8 @@
 </head>
 
 
-    <body class="page-contact">
-        <div class="page-shell">
-
-
-
+<body class="page-contact">
+    <div class="page-shell">
         <div class="nav-wrapper">
         <header>
             <div class="header-container">
@@ -39,31 +36,28 @@
 
                          <!-- Desktop nav -->
                         <nav class="nav-links desktop-nav">
-                            <a href="index.html">Photography</a>
+                            <a href="photo.html">Photography</a>
                             <a href="design.html">Design</a>
                             <a href="about.html">About</a>
                             <a href="contact.html" class="active">Contact</a>
                         </nav>
 
                         <!-- Mobile nav -->
-                        <div class="icon-nav">
-
-                            <a href="index.html" class="icon-link icon-gallery" aria-label="Filter gallery">
-                                <img src="SVG/icon-gallery.svg" alt="">
-                            </a>
-                            <a href="design.html" class="icon-link icon-design" aria-label="Design">
-                                <img src="SVG/design.svg" alt="">
-                            </a>
-                            <!-- ABOUT -->
-                            <a href="about.html" class="icon-link icon-about" aria-label="About">
-                                <img src="SVG/about-2.svg" alt="">
-                            </a>
-                            <!-- CONTACT -->
-                            <a href="contact.html" class="icon-link icon-contact" aria-label="Contact">
-                                <img src="SVG/contact-2.svg" alt="">
-                            </a>
+                        <div class="menu-toggle" id="mobile-menu">
+                            <span></span>
+                            <span></span>
+                            <span></span>
                         </div>
 
+                        <div class="overlay" id="nav-overlay">
+                            <nav class="overlay-menu">
+                            <a href="index.html">Home</a>
+                                <a href="photo.html">Photo</a>
+                                <a href="design.html">Design</a>
+                                <a href="about.html">About</a>
+                                <a href="contact.html" class="active">Contact</a>
+                            </nav>
+                        </div>
                     </div>
 
                 </div>
@@ -79,7 +73,7 @@
 
             <h1>CONTACT ME</h1>
 
-            <p>I'm open to collaborations, portrait sessions and design commissions.</p>
+            <p>I'm open to collaborations, portrait sessions & design commissions.</p>
 
                 <form action="https://formspree.io/f/mzdpdpoq" method="POST">
 
@@ -89,11 +83,7 @@
             
                     <div class="form-field">
                         <input type="text" name="Email" placeholder="EMAIL" required>
-                    </div>
-
-                    <div class="form-field">
-                        <input type="text" name="Subject" placeholder="SUBJECT" required>
-                    </div>
+                    </div> 
                     
                     <div class="form-field">
                         <input type="text" name="Message" placeholder="MESSAGE" required>
@@ -118,112 +108,7 @@
 
         </div>
         <!------- SCRIPTS ------->
-
-    <script>
-
-
-        /* ---------------- HEADER HEIGHT ---------------- */
-
-        const navWrapper = document.querySelector('.nav-wrapper');
-
-
-        function setNavHeight() {
-            document.documentElement.style.setProperty(
-                '--header-height',
-                `${navWrapper.offsetHeight}px`
-            );
-        }
-
-        setNavHeight();
-        window.addEventListener('resize', setNavHeight);
-
-
-        /* ---------------- FILTER DROPDOWN ---------------- */
-        /* ---------------- FILTERING ---------------- */
-
-        const filterOptions = document.querySelectorAll('.filter-option');
-        const items = document.querySelectorAll('.poster-grid img');
-
-        filterOptions.forEach(option => {
-        option.addEventListener('click', (e) => {
-            e.stopPropagation();
-
-            const filter = option.dataset.filter;
-
-            filterOptions.forEach(o => o.classList.remove('active'));
-            option.classList.add('active');
-
-            items.forEach(item => {
-            if (filter === 'all' || item.dataset.category === filter) {
-                item.style.display = 'block';
-            } else {
-                item.style.display = 'none';
-            }
-            });
-
-            // Close all dropdowns
-            document
-            .querySelectorAll('.sort-wrapper')
-            .forEach(w => w.classList.remove('active'));
-        });
-        });
-
-
-
-        let lastScrollY = window.scrollY;
-
-        window.addEventListener('scroll', () => {
-        const currentScrollY = window.scrollY;
-
-        if (Math.abs(currentScrollY - lastScrollY) < 10) return;
-
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
-            navWrapper.classList.add('nav-hidden');
-        } else {
-            navWrapper.classList.remove('nav-hidden');
-        }
-
-        lastScrollY = currentScrollY;
-        });
-
-        /* ---------------- GALLERY CONTROL ---------------- */
-
-        /* ---------------- GALLERY CONTROL ---------------- */
-
-        const isGalleryPage = document.body.classList.contains('page-gallery');
-
-        document.querySelectorAll('.sort-wrapper').forEach(wrapper => {
-        const button = wrapper.querySelector('button');
-
-        button.addEventListener('click', (e) => {
-            if (!isGalleryPage) {
-            // Not on gallery → navigate
-            window.location.href = 'index.html';
-            return;
-            }
-
-            // On gallery → toggle dropdown
-            e.preventDefault();
-            e.stopPropagation();
-
-            // Close others first
-            document
-            .querySelectorAll('.sort-wrapper')
-            .forEach(w => w.classList.remove('active'));
-
-            wrapper.classList.toggle('active');
-        });
-        });
-
-        // Global click closes dropdowns
-        document.addEventListener('click', () => {
-        document
-            .querySelectorAll('.sort-wrapper')
-            .forEach(w => w.classList.remove('active'));
-        });
-
-
-    </script>
+    <script src="script.js"></script>
     </body>
 
 </html>
