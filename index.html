@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yershov Studio | Entry</title>
+    <title>Yershov Studio</title>
     <link rel="stylesheet" href="styles.css">
     
     <style>
@@ -248,7 +248,7 @@
         line-height: 1.8;
         opacity: 0.7; /* Brighter for better readability */
         font-weight: 300;
-        margin-bottom: 30px;
+        margin-bottom:0px;
         flex-grow: 1; /* Pushes the link to the bottom of the box */
     }
 
@@ -358,10 +358,10 @@
 
                             <!-- Desktop nav -->
                             <nav class="nav-links desktop-nav">
-                                <a href="photo.html">Photography</a>
-                                <a href="design.html">Design</a>
-                                <a href="about.html">About</a>
-                                <a href="contact.html" class="contact-nav">Contact</a>
+                                <a href="photo/index.html">Gallery</a>
+                                <!-- <a href="design.html">Design</a> -->
+                                <a href="about/index.html">About</a>
+                                <a href="contact/index.html" class="contact-nav">Contact</a>
                             </nav>
 
                             <!-- Mobile nav -->
@@ -377,10 +377,10 @@
                             <div class="overlay" id="nav-overlay">
                                 <nav class="overlay-menu">
                                     <a href="index.html" class="active">Home</a>
-                                    <a href="photo.html">Photo</a>
-                                    <a href="design.html">Design</a>
-                                    <a href="about.html">About</a>
-                                    <a href="contact.html">Contact</a>
+                                    <a href="photo/index.html">Gallery</a>
+                                    <!-- <a href="design.html">Design</a> -->
+                                    <a href="about/index.html">About</a>
+                                    <a href="contact/index.html">Contact</a>
                                 </nav>
                             </div>
 
@@ -396,7 +396,7 @@
                 <div class="branding-photo-bg" style="background-image: url('profilepic2.png');"></div>
                 <h1 class="hero-title">Oleg<br>Yershov</h1>
                 <p class="hero-bio">
-                    I'm a freelance photographer, creative director & graphic designer located in Lowell Massachusetts, specializing in editorial portraiture and branding.
+                    I'm a creative director & photographer located in Lowell Massachusetts, specializing in editorial portraiture through the use of unique environments.
                 </p>
                 <a href="#services" class="services-btn">Info / Services <span class="caret">↓</span></a>
             </section>
@@ -407,9 +407,9 @@
                     <h2>Photography</h2>
                 </a>
 
-                <a href="design.html" class="portal-box">
+                <a href="about.html" class="portal-box">
                     <div class="box-bg" style="background-image: url('rock4-2.jpg');"></div>
-                    <h2>Design</h2>
+                    <h2>About</h2>
                 </a>
 
                 <a href="contact.html" class="portal-box">
@@ -423,15 +423,44 @@
         <hr class="section-divider">
 
         <section id="services" class="services-section">
+            <h2 class="hero-title" style="font-size: 40px; margin-bottom: 10px; margin-top: 0;">Booking Info</h2>
+            <p class="hero-bio" style="opacity: 0.8;">Currently accepting select projects for Summer 2026.</p>
+
+            <div class="services-grid">
+                <div class="service-item">
+                    <span class="service-num">01</span> <h3>Consultation</h3>
+                    <p>We begin with a discussion to define your project goals and create a Pinterest board to visualize ideas. We discuss the aesthetic direction, outfit ideas, and location to create the best possible results.</p>
+                    <br><br>
+                    <!-- <strong>Rates available upon inquiry</strong></p> -->
+                </div>
+
+                <div class="service-item">
+                    <span class="service-num">02</span>
+                    <h3>Production & Creation</h3>
+                    <p>On the shoot day, we execute the plan in a studio or on-location. This phase is entirely focused on visual storytelling, using lighting, poses and the environment to capture imagery that tells your unique story.</p>
+                    <br><br>
+                    <!-- <strong>Rate: Project-Dependent</strong></p> -->
+                </div>
+
+                <div class="service-item red-card">
+                    <span class="service-num">03</span> <h3>Editing & Delivery</h3>
+                    <p>Post-production is where the final look is polished. You receive all of the files from the shoot, mark the photos you want edited, and I deliver a gallery of professionally edited images formatted for your specific needs.</p>
+                    <a href="contact.html" class="services-btn red-btn">Contact Me <span class="caret">→</span></a>
+                </div>
+            </div>
+        </section>
+
+        <!--
+
+        <section id="services" class="services-section">
             <h2 class="hero-title" style="font-size: 40px; margin-bottom: 10px; margin-top: 0;">Booking & Commissions</h2>
             <p class="hero-bio" style="opacity: 0.8;">Currently accepting select projects for Summer 2026.</p>
 
             <div class="services-grid">
                 <div class="service-item">
                     <span class="service-num">01</span> <h3>Photography</h3>
-                    <p>Studio and location sessions are focused on visual storytelling that match your vision – every project is approached with a focus on unique lighting environments and editorial direction.
+                    <p>Studio and location sessions are focused on visual storytelling that match your vision – every project is approached with a focus on unique environments and editorial direction.
                     <br><br>
-                    <!-- <strong>Rates available upon inquiry</strong></p> -->
                 </div>
 
                 <div class="service-item">
@@ -439,7 +468,6 @@
                     <h3>Design Commissions</h3>
                     <p>Specializing in branding, UI/UX systems, & prototyping. Delivering production-ready design solutions for commercial and artistic use.
                     <br><br>
-                    <!-- <strong>Rate: Project-Dependent</strong></p> -->
                 </div>
 
                 <div class="service-item red-card">
@@ -449,6 +477,16 @@
                 </div>
             </div>
         </section>
+
+        -->
+
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <span class="footer-left">© 2026</span>
+                <span class="footer-right">CREATED BY OLEG YERSHOV</span>
+            </div>
+        </footer>
     </div>
     <script src="script.js"></script>
 </body>
